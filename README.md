@@ -5,8 +5,8 @@ WIP - Secret project.
 I've been toying with this for a while. The latest iteration is not too far but still not usable. 
 
 ## TODO
-define application as arrows
-use combinators to build logic
+ - define application as arrows
+ - use combinators to build logic
 
 generation
 - generate first output in html or js
