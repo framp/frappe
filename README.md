@@ -18,11 +18,12 @@ now it's an arrowapply and a monad - and you lose static analysis but it's the o
 
 
 I need:
-dynamic collections support
-arrows with side effects
-events handling
+ - dynamic collections support
+ - arrows with side effects
+ - events handling
 
 Events handling:
-setAttribute('click')('onClickCTA')
-You set a label in your click, the rendering system bind the event to the dom node, ["onClickCTA", event] get added to the input to the 
-application 
+- setAttribute('click')('onClickCTA')
+- You set a label in your click, 
+- The rendering system bind the event to the dom node
+- ["onClickCTA", event] get added to the input to the application 
