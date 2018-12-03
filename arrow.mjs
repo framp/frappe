@@ -1,4 +1,4 @@
-import assert from "assert";
+import * as assert from "./assert.mjs";
 
 const ARROW_KEY = '__type'
 const ARROW_VALUE = 'Arrow'

@@ -1,6 +1,5 @@
-import assert from "assert";
+import * as assert from "./assert.mjs";
 import * as A from "./arrow.mjs";
-
 
 const setAttribute = key =>
   A.accum(
@@ -25,18 +24,18 @@ const setAttribute = key =>
   setAttribute("class")("lolcat")[0]("gifcat")[1](nodeWith("class", "gifcat"));
   setAttribute("class")("lolcat")[1](nodeWith("class", "lolcat"));
   setAttribute("class")("lolcat")[0]("lolcat")[1](nodeFail);
-} //#endif
+}
 
 const makeElement = type =>
   A.accum(
     null,
-    (acc, nodeOps = []) =>
+    (acc, nodeOps = []) => console.log(nodeOps.map(a => a.toString())) ||
       acc
         ? [
             acc,
             (parent, document, eventMapper, index = 0) => {
               const el = parent.childNodes[index];
-              nodeOps.forEach((op, index) => op(el, document, index));
+              nodeOps.filter(Boolean).forEach((op, index) => op(el, document, index));
               return el;
             }
           ]
@@ -44,7 +43,7 @@ const makeElement = type =>
             type,
             (parent, document, eventMapper, index = 0) => {
               const el = document.createElement(type);
-              nodeOps.forEach((op, index) => op(el, document, index));
+              nodeOps.filter(Boolean).forEach((op, index) => op(el, document, index));
               if (parent.childNodes[index]) {
                 parent.replaceChild(parent.childNodes[index], el);
               } else {
@@ -121,14 +120,16 @@ export const h = (type, attribs = {}, childNodes = []) => {
         childNodes,
         attributes,
         tagName: type.toUpperCase(),
-        appendChild: c => childNodes.push(c),
+        appendChild: c => console.log('APPENDCHILD-' + type,c) || childNodes.push(c),
         replaceChild: (p, c) => {
+          console.log('REPLACECHILD-' + type, p, c) 
           const index = childNodes.findIndex(n => n === p);
           if (index === -1)
             throw new Error("Not a valid element! How dare you!");
           childNodes[index] = c;
         },
         setAttribute: (k, v) => {
+          console.log('SETATTRIBUTE-' + type, k, v)
           attributes[k] = v;
         },
         getAttribute: k => attributes[k]
@@ -171,23 +172,24 @@ export const h = (type, attribs = {}, childNodes = []) => {
     assert.deepEqual(document.body.childNodes[0].attributes.class, countDownExpected[i]);
   });
 
-  /* document.body = document.createElement("body");
+  document.body = document.createElement("body");
   const dynamicChildren = A.accum(0, (acc, val) => [
     acc + 1,
-    A.fanout([ ...Array(acc).keys() ].map((_, i) => 
-      h('p', { class: `dynamic-${i}` })))[1]
+    A.fanout([ ...Array(acc+1) ].map((_, i) => 
+      h('p', { class: `dynamic-${i}` })))()[1]
   ])
   const dynamicParent = h("div", {}, dynamicChildren);
   const dynamicResults = A.run(dynamicParent, [0, 1, 2, 3]);
   dynamicResults.forEach((fn, i) => {
+    console.log(fn)
     fn(document.body, document);
     assert.deepEqual(document.body.childNodes[0].tagName, "DIV");
-    console.log(document.body.childNodes[0].childNodes, i)
-    assert.deepEqual(document.body.childNodes[0].childNodes.length, i);
-    for (let j=0; j<i; j++) {
-      assert.deepEqual(document.body.childNodes[0].childNodes[i-1].tagName, 'P');
-      assert.deepEqual(document.body.childNodes[0].childNodes[i-1].attributes.class, `dynamic-${j}`);
-    }
-  }); */
+    console.log(';;;', document.body.childNodes[0].childNodes)
+    //assert.deepEqual(document.body.childNodes[0].childNodes.length, i);
+    //for (let j=0; j<i; j++) {
+      //assert.deepEqual(document.body.childNodes[0].childNodes[i-1].tagName, 'P');
+      //assert.deepEqual(document.body.childNodes[0].childNodes[i-1].attributes.class, `dynamic-${j}`);
+    //}
+  });
 }
 
