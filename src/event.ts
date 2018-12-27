@@ -1,5 +1,16 @@
 import test from "./test";
-import { run, fn, and, accum, accum1 } from "./core";
+import {
+  run,
+  fn,
+  and,
+  accum,
+  accum1,
+  Straw,
+  Event,
+  EventType,
+  EventRef
+} from "./core";
+import { any } from "prop-types";
 
 export const event = fn((val, time, event) => event);
 {
@@ -15,10 +26,14 @@ export const event = fn((val, time, event) => event);
   );
 }
 
-export const emit = (type, event, opts) =>
+export const emit = (type: EventType, event: any, opts: EventRef) =>
   fn((val, time, event1, emit) => emit(type, opts)(event));
 
-export const on = (type, ref, transformer = val => val) =>
+export const on = (
+  type: EventType,
+  ref: EventRef | any,
+  transformer: (Event) => any = val => val
+) =>
   fn(
     (val, time, event) =>
       (event &&
@@ -60,18 +75,22 @@ export const on = (type, ref, transformer = val => val) =>
   );
 }
 
-export const beforeEvent = (type, ref) =>
+export const beforeEvent = (type: EventType, ref: EventRef | any) =>
   accum((acc, val, time, event, emit) => {
     const [_, happened] = on(type, ref, Boolean)(val, time, event, emit);
     return [!happened && acc, acc];
   }, true);
-export const afterEvent = (type, ref) =>
+export const afterEvent = (type: EventType, ref: EventRef | any) =>
   accum1((acc, val, time, event, emit) => {
     const [_, happened] = on(type, ref, Boolean)(val, time, event, emit);
     return happened || acc;
   }, false);
-export const betweenEvents = (type1, ref1, type2, ref2) =>
-  and(afterEvent(type1, ref1), beforeEvent(type2, ref2));
+export const betweenEvents = (
+  type1: EventType,
+  ref1: EventRef | any,
+  type2: EventType,
+  ref2: EventRef | any
+) => and(afterEvent(type1, ref1), beforeEvent(type2, ref2));
 
 {
   const assert = test("beforeEvent, afterEvent, between");

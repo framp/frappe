@@ -11,7 +11,7 @@ import {
   fn,
   compose,
   fanout
-} from "../src/index.mjs";
+} from "../src";
 
 const kittyRequest = promise(() =>
   fetch(

@@ -1,6 +1,17 @@
 import test from "./test";
-import { run, constant, accum, compose, hold } from "./core";
+import { run, constant, accum, compose, hold, Straw } from "./core";
 import { on } from "./event";
+
+export interface DynamicDriver {
+  new: () => any;
+  remove: (id: any) => (list: any) => any;
+  add: (id: any, val: any) => (list: any) => any;
+}
+
+export interface DynamicActions {
+  add?: Straw;
+  remove?: Straw;
+}
 
 export const listDriver = {
   new: () => [],
@@ -25,10 +36,10 @@ export const mapDriver = {
   })
 };
 
-export const dynamicStructure = driver => ({
+export const dynamicStructure = (driver: DynamicDriver) => ({
   add = constant(false),
   remove = constant(false)
-} = {}) =>
+}: DynamicActions = {}) =>
   accum(
     ([add, remove, acc], val, time, event, emit) => {
       const [newAdd, addTriggered] = add(val, time, event, emit);

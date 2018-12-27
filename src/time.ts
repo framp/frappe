@@ -7,26 +7,26 @@ export const time = fn((val, time) => time);
   assert.stringEqual(run(time, [1, 2, 3, 4], [3, 5, 6, 10]), [3, 5, 6, 10]);
 }
 
-export const atTime = (target, margin = 0) =>
+export const atTime = (target: number, margin: number = 0) =>
   fn((val, time) =>
     Boolean(time - margin <= target && time + margin >= target)
   );
-export const periodicTime = period =>
+export const periodicTime = (period: number) =>
   accum((acc, val, time) => {
     const newAcc = acc === null ? time : acc;
-    return [newAcc, parseInt(time / period) % 2 === 0];
+    return [newAcc, Math.floor(time / period) % 2 === 0];
   }, null);
-export const beforeTime = target =>
+export const beforeTime = (target: number) =>
   accum((acc, val, time) => {
     const newAcc = acc === null ? time : acc;
     return [newAcc, time - newAcc <= target];
   }, null);
-export const afterTime = target =>
+export const afterTime = (target: number) =>
   accum((acc, val, time) => {
     const newAcc = acc === null ? time : acc;
     return [newAcc, time - newAcc >= target];
   }, null);
-export const betweenTimes = (start, end) =>
+export const betweenTimes = (start: number, end: number) =>
   and(beforeTime(end), afterTime(start));
 
 {

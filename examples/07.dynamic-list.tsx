@@ -7,7 +7,7 @@ import {
   compose,
   fanout,
   dynamicList
-} from "../src/index.mjs";
+} from "../src";
 
 //1. O-Ren Ishii
 //2. Vernita Green

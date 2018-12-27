@@ -1,8 +1,8 @@
 import React from "react";
-import { fn } from "../src/index.mjs";
+import { fn } from "../src";
 
 export default fn((val, time) => {
-  const seconds = parseInt(time / 1000);
+  const seconds = Math.floor(time / 1000);
   return (
     <div>
       <h1>

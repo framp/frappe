@@ -43,7 +43,7 @@ export {
 export { dynamicStructure, dynamicList, dynamicMap } from "./store";
 export { promise } from "./async";
 export {
-  strawRunner,
+  ReactRunner,
   timeStrategy,
   animationFrameStrategy,
   listenOn

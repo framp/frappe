@@ -1,5 +1,5 @@
 import React from "react";
-import { fn, listenOn, on, compose, holdFirst, fanout } from "../src/index.mjs";
+import { fn, listenOn, on, compose, holdFirst, fanout } from "../src";
 
 const button = listenOn("click", fn(() => <button>Click me</button>));
 

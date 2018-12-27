@@ -1,5 +1,5 @@
 import React from "react";
-import { fn } from "../src/index.mjs";
+import { fn } from "../src";
 
 export default fn(() => (
   <div>

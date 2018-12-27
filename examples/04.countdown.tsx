@@ -1,5 +1,5 @@
 import React from "react";
-import { fn, accum, compose } from "../src/index.mjs";
+import { fn, accum, compose } from "../src";
 
 const countDown = accum(acc => [acc - 1, acc <= 0 ? "BOOM" : acc], 5);
 
