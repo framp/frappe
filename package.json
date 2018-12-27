@@ -3,10 +3,14 @@
   "scripts": {
     "prettify": "prettier --write *.mjs",
     "lint": "standard",
-    "test": "node --experimental-modules element"
+    "test": "node --experimental-modules element",
+    "start-example": "parcel ./examples/index.html --open"
   },
   "devDependencies": {
-    "prettier": "^1.14.2",
-    "standard": "^12.0.1"
+    "parcel-bundler": "^1.11.0",
+    "prettier": "^1.15.3",
+    "standard": "^12.0.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   }
 }
