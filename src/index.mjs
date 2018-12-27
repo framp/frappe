@@ -42,4 +42,9 @@ export {
 } from "./event";
 export { dynamicStructure, dynamicList, dynamicMap } from "./store";
 export { promise } from "./async";
-export { strawRunner, timeStrategy, animationFrameStrategy, listenOn } from "./react";
+export {
+  strawRunner,
+  timeStrategy,
+  animationFrameStrategy,
+  listenOn
+} from "./react";

@@ -2,7 +2,10 @@ import React from "react";
 import test from "./test";
 import { of, constant } from "./core";
 
-export const strawRunner = (straw, { updateStrategies = [], verbose = false } = {}) =>
+export const strawRunner = (
+  straw,
+  { updateStrategies = [], verbose = false } = {}
+) =>
   class StrawRunner extends React.Component {
     constructor(props) {
       super(props);

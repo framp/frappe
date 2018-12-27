@@ -1,7 +1,7 @@
 import React from "react";
 import { fn, accum, compose } from "../src/index.mjs";
 
-const countDown = accum((acc) => [acc - 1, acc <= 0 ? "BOOM" : acc], 5);
+const countDown = accum(acc => [acc - 1, acc <= 0 ? "BOOM" : acc], 5);
 
 const renderCountDown = fn(text => (
   <div>
@@ -9,4 +9,7 @@ const renderCountDown = fn(text => (
   </div>
 ));
 
-export default compose(renderCountDown, countDown);
+export default compose(
+  renderCountDown,
+  countDown
+);
