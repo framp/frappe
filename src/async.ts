@@ -1,8 +1,8 @@
-import test from "./test";
-import { run, fn, Straw, Event, EmitEvent } from "./core";
+import test from './test'
+import { run, fn, FEvent, EmitEvent } from './core'
 
 interface PromiseFn {
-  (val: any, time: number, event: Event, emit: EmitEvent): Promise<any>;
+  (val: any, time: number, event: FEvent, emit: EmitEvent): Promise<any>
 }
 
 /**
@@ -14,23 +14,22 @@ interface PromiseFn {
 export const promise = (func: PromiseFn) => {
   const ref = fn((val, time, event, emit) => {
     func(val, time, event, emit)
-      .then(emit("promise-resolve", { ref }))
-      .catch(emit("promise-error", { ref }));
-  });
-  return ref;
-};
+      .then(emit({ type: 'promise-resolve', ref }))
+      .catch(emit({ type: 'promise-error', ref }))
+  })
+  return ref
+}
 
 {
-  const assert = test("promise");
+  const assert = test('promise')
   const delay = t =>
-    promise(v => new Promise(res => setTimeout(() => res(v), t)));
-  const emitSpy = (type, opts) => {
-    assert(["promise-resolve", "promise-error"].includes(type));
-    assert.stringEqual(opts, {});
-    return event => assert([1, 2, 3, 42].includes(event));
-  };
+    promise(v => new Promise(resolve => setTimeout(() => resolve(v), t)))
+  const emitSpy = ({ type }: FEvent) => {
+    assert(['promise-resolve', 'promise-error'].includes(type))
+    return event => assert([1, 2, 3, 42].includes(event))
+  }
   assert.stringEqual(
     run(delay(5), [1, 2, 3, 42], [], [], [emitSpy, emitSpy, emitSpy, emitSpy]),
     [null, null, null, null]
-  );
+  )
 }

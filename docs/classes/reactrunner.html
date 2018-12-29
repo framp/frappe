@@ -988,6 +988,14 @@ img { max-width: 100%; }
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>It&#39;s a React component that will execute a <code>Straw</code> and render it.</p>
+				</div>
+				<p>It will re-render every time there is a new event being triggered or whenever an update strategy fires.</p>
+			</div>
+		</section>
 		<section class="tsd-panel tsd-type-parameters">
 			<h3>Type parameters</h3>
 			<ul class="tsd-type-parameters">
@@ -1068,7 +1076,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Overrides Component.__constructor</p>
 							<ul>
-								<li>Defined in react.ts:26</li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/eea2280/src/react.ts#L32">react.ts:32</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1375,7 +1383,7 @@ class Foo extends React.Component {
 						<aside class="tsd-sources">
 							<p>Overrides ComponentLifecycle.componentDidMount</p>
 							<ul>
-								<li>Defined in react.ts:37</li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/eea2280/src/react.ts#L43">react.ts:43</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1514,7 +1522,7 @@ class Foo extends React.Component {
 						<aside class="tsd-sources">
 							<p>Overrides ComponentLifecycle.componentWillUnmount</p>
 							<ul>
-								<li>Defined in react.ts:76</li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/eea2280/src/react.ts#L80">react.ts:80</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1574,22 +1582,19 @@ class Foo extends React.Component {
 				<a name="emitevent" class="tsd-anchor"></a>
 				<h3>emit<wbr>Event</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">emit<wbr>Event<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">: </span><a href="" class="tsd-signature-type">EventType</a>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/eventref.html" class="tsd-signature-type">EventRef</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+					<li class="tsd-signature tsd-kind-icon">emit<wbr>Event<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/fevent.html" class="tsd-signature-type">FEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in react.ts:53</li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/eea2280/src/react.ts#L59">react.ts:59</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>type: <a href="" class="tsd-signature-type">EventType</a></h5>
-							</li>
-							<li>
-								<h5>opts: <a href="../interfaces/eventref.html" class="tsd-signature-type">EventRef</a></h5>
+								<h5>event: <a href="../interfaces/fevent.html" class="tsd-signature-type">FEvent</a></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
@@ -1682,7 +1687,7 @@ class Foo extends React.Component {
 						<aside class="tsd-sources">
 							<p>Overrides Component.render</p>
 							<ul>
-								<li>Defined in react.ts:72</li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/eea2280/src/react.ts#L76">react.ts:76</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Component</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">__type</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">__type</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1778,13 +1783,13 @@ class Foo extends React.Component {
 				<a name="strawexec" class="tsd-anchor"></a>
 				<h3>straw<wbr>Exec</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">straw<wbr>Exec<span class="tsd-signature-symbol">(</span>straw<span class="tsd-signature-symbol">: </span><a href="../interfaces/straw.html" class="tsd-signature-type">Straw</a>, time<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, event<span class="tsd-signature-symbol">: </span><a href="../interfaces/event.html" class="tsd-signature-type">Event</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></li>
+					<li class="tsd-signature tsd-kind-icon">straw<wbr>Exec<span class="tsd-signature-symbol">(</span>straw<span class="tsd-signature-symbol">: </span><a href="../interfaces/straw.html" class="tsd-signature-type">Straw</a>, time<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, event<span class="tsd-signature-symbol">: </span><a href="../interfaces/fevent.html" class="tsd-signature-type">FEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in react.ts:65</li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/eea2280/src/react.ts#L69">react.ts:69</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1796,7 +1801,7 @@ class Foo extends React.Component {
 								<h5>time: <span class="tsd-signature-type">number</span></h5>
 							</li>
 							<li>
-								<h5>event: <a href="../interfaces/event.html" class="tsd-signature-type">Event</a></h5>
+								<h5>event: <a href="../interfaces/fevent.html" class="tsd-signature-type">FEvent</a></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Object</span></h4>
@@ -1807,19 +1812,19 @@ class Foo extends React.Component {
 				<a name="strawupdate" class="tsd-anchor"></a>
 				<h3>straw<wbr>Update</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">straw<wbr>Update<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/event.html" class="tsd-signature-type">Event</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">straw<wbr>Update<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/fevent.html" class="tsd-signature-type">FEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in react.ts:46</li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/eea2280/src/react.ts#L52">react.ts:52</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>event: <a href="../interfaces/event.html" class="tsd-signature-type">Event</a></h5>
+								<h5>event: <a href="../interfaces/fevent.html" class="tsd-signature-type">FEvent</a></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>

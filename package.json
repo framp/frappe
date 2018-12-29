@@ -1,19 +1,21 @@
 {
   "name": "frappe",
   "scripts": {
-    "prettify": "prettier --write src/*.ts examples/*.ts",
-    "lint": "standard",
-    "test": "node --experimental-modules element",
-    "start-example": "parcel ./examples/index.html --open",
-    "make-docs": "typedoc src"
+    "pretty": "prettier --no-semi --single-quote --write src/*.ts examples/*.tsx && tslint src/*.ts examples/*.tsx --fix",
+    "test": "ts-node src",
+    "start": "parcel ./examples/index.html --open",
+    "docs": "typedoc src"
   },
   "devDependencies": {
     "@types/react": "^16.7.18",
+    "eslint-plugin-typescript": "^0.14.0",
     "parcel-bundler": "^1.11.0",
     "prettier": "^1.15.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "standard": "^12.0.1",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.0",
+    "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.13.0",
     "typescript": "^3.2.2"
   }

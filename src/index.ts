@@ -23,7 +23,7 @@ export {
   or,
   not,
   when
-} from "./core";
+} from './core'
 export {
   time,
   atTime,
@@ -31,7 +31,7 @@ export {
   beforeTime,
   afterTime,
   betweenTimes
-} from "./time";
+} from './time'
 export {
   event,
   emit,
@@ -39,12 +39,12 @@ export {
   beforeEvent,
   afterEvent,
   betweenEvents
-} from "./event";
-export { dynamicStructure, dynamicList, dynamicMap } from "./store";
-export { promise } from "./async";
+} from './event'
+export { dynamicStructure, dynamicArray, dynamicMap } from './store'
+export { promise } from './async'
 export {
   ReactRunner,
   timeStrategy,
   animationFrameStrategy,
   listenOn
-} from "./react";
+} from './react'

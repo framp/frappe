@@ -1,29 +1,21 @@
-import React from "react";
-import {
-  listenOn,
-  hold,
-  on,
-  fn,
-  compose,
-  fanout,
-  dynamicList
-} from "../src";
+import React from 'react'
+import { listenOn, hold, on, fn, compose, fanout, dynamicArray } from '../src'
 
-//1. O-Ren Ishii
-//2. Vernita Green
-//3. Budd
-//4. Elle Driver
-//5. Bill
+// 1. O-Ren Ishii
+// 2. Vernita Green
+// 3. Budd
+// 4. Elle Driver
+// 5. Bill
 
-const input = listenOn("input", fn(() => <input />));
-const submit = listenOn("click", fn(() => <button>Kill</button>));
+const input = listenOn({ type: 'input' }, fn(() => <input />))
+const submit = listenOn({ type: 'click' }, fn(() => <button>Kill</button>))
 const list = compose(
-  dynamicList({
-    add: on("click", submit),
-    remove: on("click", "delete-button")
+  dynamicArray({
+    add: on({ type: 'click', ref: submit }),
+    remove: on({ type: 'click', ref: 'delete-button' })
   }),
-  hold(on("input", input, event => event.data.target.value))
-);
+  hold(on({ type: 'input', ref: input }, event => event.data.target.value))
+)
 
 const render = fn(([input, submit, list], time, event, emit) => (
   <div>
@@ -39,7 +31,9 @@ const render = fn(([input, submit, list], time, event, emit) => (
             <span>{el}</span>
             <span>
               &nbsp;
-              <button onClick={emit("click", { ref: "delete-button", id })}>
+              <button
+                onClick={emit({ type: 'click', ref: 'delete-button', id })}
+              >
                 X
               </button>
             </span>
@@ -48,9 +42,9 @@ const render = fn(([input, submit, list], time, event, emit) => (
       </ol>
     </div>
   </div>
-));
+))
 
 export default compose(
   render,
   fanout(input, submit, list)
-);
+)

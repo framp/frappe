@@ -11,7 +11,6 @@ module.exports = {
   suppressExcessPropertyErrors: true,
   suppressImplicitAnyIndexErrors: true,
   hideGenerator: true,
-  hideLegend: true,
   readme: 'README.md',
   exclude: [
     'src/index.ts',
