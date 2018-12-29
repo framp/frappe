@@ -1,5 +1,5 @@
-import test from './test'
 import { run, fn, FEvent, EmitEvent } from './core'
+import test from './test' // {test}
 
 interface PromiseFn {
   (val: any, time: number, event: FEvent, emit: EmitEvent): Promise<any>
@@ -19,7 +19,7 @@ export const promise = (func: PromiseFn) => {
   })
   return ref
 }
-
+// {test
 {
   const assert = test('promise')
   const delay = t =>
@@ -33,3 +33,4 @@ export const promise = (func: PromiseFn) => {
     [null, null, null, null]
   )
 }
+// test}
