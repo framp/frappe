@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>frappe | frappe</title>
+	<title>@framp/frappe | @framp/frappe</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -879,7 +879,7 @@ img { max-width: 100%; }
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="index.html">frappe</a></strong>
+					<strong><a href="index.html">@framp/frappe</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -911,10 +911,10 @@ img { max-width: 100%; }
 			<a href="classes/reactrunner.html" class="tsd-kind-icon">React<wbr>Runner</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="interfaces/accum1fn.html" class="tsd-kind-icon">Accum1<wbr>Fn</a>
+			<a href="interfaces/accumfn.html" class="tsd-kind-icon">Accum<wbr>Fn</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="interfaces/accumfn.html" class="tsd-kind-icon">Accum<wbr>Fn</a>
+			<a href="interfaces/accumstatefn.html" class="tsd-kind-icon">Accum<wbr>State<wbr>Fn</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/dynamicactions.html" class="tsd-kind-icon">Dynamic<wbr>Actions</a>
@@ -950,7 +950,7 @@ img { max-width: 100%; }
 			<a href="globals.html#accum" class="tsd-kind-icon">accum</a>
 		</li>
 		<li class=" tsd-kind-function">
-			<a href="globals.html#accum1" class="tsd-kind-icon">accum1</a>
+			<a href="globals.html#accumstate" class="tsd-kind-icon">accum<wbr>State</a>
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#afterevent" class="tsd-kind-icon">after<wbr>Event</a>
@@ -1093,11 +1093,11 @@ assert.equal(nextResult, <span class="hljs-number">10</span>)</code></pre><ul>
 			<p>Running a <code>Straw</code> means calling it as a function and reading its result.</p>
 			<p>If you want to run a <code>Straw</code> twice, you should use the <code>nextStraw</code> being returned for the second call.</p>
 			<p>This simple pattern can be used to alter the behaviour of your <code>Straw</code> over executions and even to store state.</p>
-			<pre><code><span class="hljs-keyword">import</span> { of, run, accum } <span class="hljs-keyword">from</span> <span class="hljs-string">'@framp/frappe'</span>
+			<pre><code><span class="hljs-keyword">import</span> { of, run, accumState } <span class="hljs-keyword">from</span> <span class="hljs-string">'@framp/frappe'</span>
 <span class="hljs-keyword">const</span> sumAll = (state = <span class="hljs-number">0</span>) =&gt; of((val, time, event) =&gt; [sumAll(state+val), state+val])
 <span class="hljs-keyword">const</span> results = run(sumAll(), [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>])
 assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">6</span>,<span class="hljs-number">10</span>,<span class="hljs-number">15</span>)
-<span class="hljs-keyword">const</span> sumAll2 = accum((a, b) =&gt; a + b, <span class="hljs-number">0</span>) <span class="hljs-comment">//equivalent to sumAll</span></code></pre><p>The main advantage of this approach over global stores, is that state is kept locally and can be accessed easily and in a controlled way by composing <code>Straws</code> where you need them (more in the next section).</p>
+<span class="hljs-keyword">const</span> sumAll2 = accumState((a, b) =&gt; a + b, <span class="hljs-number">0</span>) <span class="hljs-comment">//equivalent to sumAll()</span></code></pre><p>The main advantage of this approach over global stores, is that state is kept locally and can be accessed easily and in a controlled way by composing <code>Straws</code> where you need them (more in the next section).</p>
 			<p>The main advantage over a mutable state approach (like <code>setState</code> in React) is control and predictability, which derives from modelling state changes as a fold operation over a set of values.</p>
 			<h2 id="composition">Composition</h2>
 			<p><code>Straws</code> can be composed together</p>
@@ -1132,8 +1132,8 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<section class="tsd-index-section ">
 						<h3>Interfaces</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-interface"><a href="interfaces/accum1fn.html" class="tsd-kind-icon">Accum1<wbr>Fn</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/accumfn.html" class="tsd-kind-icon">Accum<wbr>Fn</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/accumstatefn.html" class="tsd-kind-icon">Accum<wbr>State<wbr>Fn</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/dynamicactions.html" class="tsd-kind-icon">Dynamic<wbr>Actions</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/dynamicdriver.html" class="tsd-kind-icon">Dynamic<wbr>Driver</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/emitevent.html" class="tsd-kind-icon">Emit<wbr>Event</a></li>
@@ -1155,7 +1155,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 						<h3>Functions</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-function"><a href="globals.html#accum" class="tsd-kind-icon">accum</a></li>
-							<li class="tsd-kind-function"><a href="globals.html#accum1" class="tsd-kind-icon">accum1</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#accumstate" class="tsd-kind-icon">accum<wbr>State</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#afterevent" class="tsd-kind-icon">after<wbr>Event</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#aftertime" class="tsd-kind-icon">after<wbr>Time</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#and" class="tsd-kind-icon">and</a></li>
@@ -1214,7 +1214,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 				<div class="tsd-signature tsd-kind-icon">event<span class="tsd-signature-symbol">:</span> <a href="interfaces/straw.html" class="tsd-signature-type">Straw</a><span class="tsd-signature-symbol"> =&nbsp;fn((val?: any, time?: number, event?: FEvent) &#x3D;&gt; event)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/event.ts#L10">event.ts:10</a></li>
+						<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/event.ts#L10">event.ts:10</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1234,7 +1234,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 				<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <a href="interfaces/straw.html" class="tsd-signature-type">Straw</a><span class="tsd-signature-symbol"> =&nbsp;of(val &#x3D;&gt; [id, val])</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L92">core.ts:92</a></li>
+						<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L92">core.ts:92</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1254,7 +1254,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 				<div class="tsd-signature tsd-kind-icon">time<span class="tsd-signature-symbol">:</span> <a href="interfaces/straw.html" class="tsd-signature-type">Straw</a><span class="tsd-signature-symbol"> =&nbsp;fn((val, time) &#x3D;&gt; time)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/time.ts#L9">time.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/time.ts#L9">time.ts:9</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1281,15 +1281,15 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L316">core.ts:316</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L337">core.ts:337</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>It creates a <code>Straw</code> that will keep state, given a function <code>func</code> and an initial state <code>acc</code>.</p>
 							</div>
-							<p>Similarly to a reducer, <code>func</code> accepts <code>acc</code>, <code>val</code>, <code>time</code>, <code>event</code>, <code>emit</code> and returns a tuple <code>[newAcc, output]</code>.</p>
-							<p><code>newAcc</code> will be used as the <code>acc</code> in the next execution of the <code>Straw</code>, while <code>output</code> will be returned in the current execution.</p>
+							<p>Similarly to a reducer, <code>func</code> accepts <code>acc</code>, <code>val</code>, <code>time</code>, <code>event</code>, <code>emit</code> and returns a single value that will be returned in the current execution and used as <code>acc</code> in the next execution of the <code>Straw</code>.</p>
+							<p>If you want your internal state to be different from what it&#39;s being returned, see <code>accumState</code>.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -1297,7 +1297,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 								<h5>func: <a href="interfaces/accumfn.html" class="tsd-signature-type">AccumFn</a></h5>
 								<div class="tsd-comment tsd-typography">
 									<div class="lead">
-										<p>the reducer function <code>func</code></p>
+										<p>the reducer function</p>
 									</div>
 								</div>
 							</li>
@@ -1316,32 +1316,32 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="accum1" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> accum1</h3>
+				<a name="accumstate" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagConst">Const</span> accum<wbr>State</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">accum1<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><a href="interfaces/accum1fn.html" class="tsd-signature-type">Accum1Fn</a>, acc<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					<li class="tsd-signature tsd-kind-icon">accum<wbr>State<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><a href="interfaces/accumstatefn.html" class="tsd-signature-type">AccumStateFn</a>, acc<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L337">core.ts:337</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L316">core.ts:316</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>It creates a <code>Straw</code> that will keep state, given a function <code>func</code> and an initial state <code>acc</code>.</p>
 							</div>
-							<p>Similarly to a reducer, <code>func</code> accepts <code>acc</code>, <code>val</code>, <code>time</code>, <code>event</code>, <code>emit</code> and returns a single value that will be returned in the current execution and used as <code>acc</code> in the next execution of the <code>Straw</code>.</p>
-							<p>If you want your internal state to be different from what it&#39;s being returned, see <code>accum</code>.</p>
+							<p>Similarly to a reducer, <code>func</code> accepts <code>acc</code>, <code>val</code>, <code>time</code>, <code>event</code>, <code>emit</code> and returns a tuple <code>[newAcc, output]</code>.</p>
+							<p><code>newAcc</code> will be used as the <code>acc</code> in the next execution of the <code>Straw</code>, while <code>output</code> will be returned in the current execution.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>func: <a href="interfaces/accum1fn.html" class="tsd-signature-type">Accum1Fn</a></h5>
+								<h5>func: <a href="interfaces/accumstatefn.html" class="tsd-signature-type">AccumStateFn</a></h5>
 								<div class="tsd-comment tsd-typography">
 									<div class="lead">
-										<p>the reducer function</p>
+										<p>the reducer function <code>func</code></p>
 									</div>
 								</div>
 							</li>
@@ -1369,7 +1369,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/event.ts#L111">event.ts:111</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/event.ts#L110">event.ts:110</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1403,7 +1403,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/time.ts#L59">time.ts:59</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/time.ts#L59">time.ts:59</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1437,7 +1437,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L563">core.ts:563</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L563">core.ts:563</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1472,7 +1472,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/react.ts#L92">react.ts:92</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/react.ts#L92">react.ts:92</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
@@ -1491,7 +1491,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/time.ts#L27">time.ts:27</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/time.ts#L27">time.ts:27</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1535,7 +1535,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/event.ts#L100">event.ts:100</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/event.ts#L99">event.ts:99</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1569,7 +1569,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/time.ts#L48">time.ts:48</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/time.ts#L48">time.ts:48</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1603,7 +1603,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/event.ts#L123">event.ts:123</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/event.ts#L122">event.ts:122</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1645,7 +1645,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/time.ts#L71">time.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/time.ts#L71">time.ts:71</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1687,7 +1687,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L186">core.ts:186</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L186">core.ts:186</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1724,7 +1724,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L173">core.ts:173</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L173">core.ts:173</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1761,7 +1761,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L160">core.ts:160</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L160">core.ts:160</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1798,7 +1798,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L107">core.ts:107</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L107">core.ts:107</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1832,7 +1832,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L380">core.ts:380</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L380">core.ts:380</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1866,7 +1866,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L124">store.ts:124</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L124">store.ts:124</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1901,7 +1901,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L134">store.ts:134</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L134">store.ts:134</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1936,7 +1936,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L96">store.ts:96</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L96">store.ts:96</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1972,7 +1972,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/event.ts#L32">event.ts:32</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/event.ts#L32">event.ts:32</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2006,7 +2006,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L283">core.ts:283</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L283">core.ts:283</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2042,7 +2042,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L125">core.ts:125</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L125">core.ts:125</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2105,7 +2105,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L421">core.ts:421</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L421">core.ts:421</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2139,7 +2139,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L414">core.ts:414</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L414">core.ts:414</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2173,7 +2173,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L398">core.ts:398</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L398">core.ts:398</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2217,7 +2217,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L372">core.ts:372</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L372">core.ts:372</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2251,7 +2251,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/react.ts#L106">react.ts:106</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/react.ts#L106">react.ts:106</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2294,7 +2294,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L601">core.ts:601</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L601">core.ts:601</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2329,7 +2329,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L33">core.ts:33</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L33">core.ts:33</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2393,7 +2393,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/event.ts#L45">event.ts:45</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/event.ts#L45">event.ts:45</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2451,7 +2451,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L473">core.ts:473</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L473">core.ts:473</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2485,7 +2485,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L582">core.ts:582</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L582">core.ts:582</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2520,7 +2520,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/time.ts#L37">time.ts:37</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/time.ts#L37">time.ts:37</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2554,7 +2554,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/async.ts#L15">async.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/async.ts#L15">async.ts:15</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2589,7 +2589,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L516">core.ts:516</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L516">core.ts:516</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2636,7 +2636,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L59">core.ts:59</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L59">core.ts:59</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2704,7 +2704,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L240">core.ts:240</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L240">core.ts:240</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2740,7 +2740,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L457">core.ts:457</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L457">core.ts:457</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2782,7 +2782,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/react.ts#L88">react.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/react.ts#L88">react.ts:88</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2807,7 +2807,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/core.ts#L634">core.ts:634</a></li>
+								<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/core.ts#L634">core.ts:634</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2838,7 +2838,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 				<div class="tsd-signature tsd-kind-icon">array<wbr>Driver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L20">store.ts:20</a></li>
+						<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L20">store.ts:20</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2856,7 +2856,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L44">store.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L44">store.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2899,7 +2899,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L26">store.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L26">store.ts:26</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2922,7 +2922,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L33">store.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L33">store.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2953,7 +2953,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 				<div class="tsd-signature tsd-kind-icon">map<wbr>Driver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L54">store.ts:54</a></li>
+						<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L54">store.ts:54</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2971,7 +2971,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L79">store.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L79">store.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3013,7 +3013,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L60">store.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L60">store.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3038,7 +3038,7 @@ assert.equal(results, [<span class="hljs-number">1</span>,<span class="hljs-numb
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/framp/frappe/blob/06e2d90/src/store.ts#L67">store.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/framp/frappe/blob/8672fa0/src/store.ts#L67">store.ts:67</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

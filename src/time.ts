@@ -1,4 +1,4 @@
-import { run, fn, accum, and } from './core'
+import { run, fn, accumState, and } from './core'
 import test from './test' // <test>
 
 /**
@@ -35,7 +35,7 @@ export const atTime = (targetTime: number, margin: number = 0) =>
  * @returns a `Straw` that will return true or false for `period`
  */
 export const periodicTime = (period: number) =>
-  accum((acc, val, time) => {
+  accumState((acc, val, time) => {
     const newAcc = acc === null ? time : acc
     return [newAcc, Math.floor(time / period) % 2 === 0]
   }, null)
@@ -46,7 +46,7 @@ export const periodicTime = (period: number) =>
  * @returns a `Straw` that will return true until `targetTime`
  */
 export const beforeTime = (targetTime: number) =>
-  accum((acc, val, time) => {
+  accumState((acc, val, time) => {
     const newAcc = acc === null ? time : acc
     return [newAcc, time - newAcc <= targetTime]
   }, null)
@@ -57,7 +57,7 @@ export const beforeTime = (targetTime: number) =>
  * @returns a `Straw` that will return true until `targetTime`
  */
 export const afterTime = (targetTime: number) =>
-  accum((acc, val, time) => {
+  accumState((acc, val, time) => {
     const newAcc = acc === null ? time : acc
     return [newAcc, time - newAcc >= targetTime]
   }, null)

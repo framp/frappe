@@ -80,14 +80,14 @@ exports.fanout = function () {
     }
     return exports.compose(exports.split.apply(void 0, straws), exports.fn(function (val) { return straws.map(function () { return val; }); }));
 };
-exports.accum = function (func, acc) {
+exports.accumState = function (func, acc) {
     return exports.of(function (val, time, event, emit) {
         var _a = func(acc, val, time, event, emit), newAcc = _a[0], output = _a[1];
-        return [exports.accum(func, newAcc), output];
+        return [exports.accumState(func, newAcc), output];
     });
 };
-exports.accum1 = function (func, acc) {
-    return exports.accum(function (acc, val, time, event, emit) {
+exports.accum = function (func, acc) {
+    return exports.accumState(function (acc, val, time, event, emit) {
         var newVal = func(acc, val, time, event, emit);
         return [newVal, newVal];
     }, acc);
@@ -99,7 +99,7 @@ exports.constantify = function (val) {
     return exports.isStraw(val) ? val : exports.constant(val);
 };
 exports.holdWhen = function (condition, straw) {
-    return exports.accum(function (_a, val, time, event, emit) {
+    return exports.accumState(function (_a, val, time, event, emit) {
         var straw = _a[0], acc = _a[1];
         var _b = straw(val, time, event, emit), newStraw = _b[0], result = _b[1];
         return condition(acc, result, time, event, emit)
@@ -110,7 +110,7 @@ exports.holdWhen = function (condition, straw) {
 exports.holdFirst = function (straw) { return exports.holdWhen(function (acc, val) { return !acc; }, straw); };
 exports.hold = function (straw) { return exports.holdWhen(function (acc, val) { return val; }, straw); };
 exports.take = function (n, straw) {
-    return exports.accum(function (_a, val, time, event, emit) {
+    return exports.accumState(function (_a, val, time, event, emit) {
         var straw = _a[0], acc = _a[1];
         if (acc === 0)
             return [[straw, acc], null];

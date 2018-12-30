@@ -1,4 +1,4 @@
-import { fn, and, accum, accum1, FEvent } from './core'
+import { fn, and, accumState, accum, FEvent } from './core'
 import { run } from './core' // <test>
 import test from './test' // <test>
 
@@ -90,7 +90,6 @@ export const on = (
 }
 // test>
 
-
 /**
  * It accepts an event `targetEvent` and returns a `Straw` that will return true until that event happens (inclusive of when `targetEvent` happens).
  *
@@ -98,7 +97,7 @@ export const on = (
  * @returns a `Straw` that will return true until that event happens
  */
 export const beforeEvent = (targetEvent: FEvent) =>
-  accum((acc, val, time, event, emit) => {
+  accumState((acc, val, time, event, emit) => {
     const [, happened] = on(targetEvent, Boolean)(val, time, event, emit)
     return [!happened && acc, acc]
   }, true)
@@ -109,7 +108,7 @@ export const beforeEvent = (targetEvent: FEvent) =>
  * @returns a `Straw` that will return true only after that event happens
  */
 export const afterEvent = (targetEvent: FEvent) =>
-  accum1((acc, val, time, event, emit) => {
+  accum((acc, val, time, event, emit) => {
     const [, happened] = on(targetEvent, Boolean)(val, time, event, emit)
     return happened || acc
   }, false)

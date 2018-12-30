@@ -38,7 +38,7 @@ exports.mapDriver = {
 };
 exports.dynamicStructure = function (driver) { return function (_a) {
     var _b = _a === void 0 ? {} : _a, _c = _b.add, add = _c === void 0 ? core_1.constant(false) : _c, _d = _b.remove, remove = _d === void 0 ? core_1.constant(false) : _d;
-    return core_1.accum(function (_a, val, time, event, emit) {
+    return core_1.accumState(function (_a, val, time, event, emit) {
         var add = _a[0], remove = _a[1], acc = _a[2];
         var _b = add(val, time, event, emit), newAdd = _b[0], addTriggered = _b[1];
         var _c = remove(val, time, event, emit), newRemove = _c[0], removeTriggered = _c[1];

@@ -298,7 +298,7 @@ export const fanout = (...straws: Array<Straw>) =>
 }
 // test>
 
-export interface AccumFn {
+export interface AccumStateFn {
   (acc: any, val: any, time: number, event: FEvent, emit: EmitEvent): [any, any]
 }
 
@@ -313,13 +313,13 @@ export interface AccumFn {
  * @param acc the initial state
  * @returns a `Straw` that uses `func` to store state
  */
-export const accum = (func: AccumFn, acc: any) =>
+export const accumState = (func: AccumStateFn, acc: any) =>
   of((val, time, event, emit) => {
     const [newAcc, output] = func(acc, val, time, event, emit)
-    return [accum(func, newAcc), output]
+    return [accumState(func, newAcc), output]
   })
 
-export interface Accum1Fn {
+export interface AccumFn {
   (acc: any, val: any, time: number, event: FEvent, emit: EmitEvent): any
 }
 
@@ -328,22 +328,22 @@ export interface Accum1Fn {
  *
  * Similarly to a reducer, `func` accepts `acc`, `val`, `time`, `event`, `emit` and returns a single value that will be returned in the current execution and used as `acc` in the next execution of the `Straw`.
  *
- * If you want your internal state to be different from what it's being returned, see `accum`.
+ * If you want your internal state to be different from what it's being returned, see `accumState`.
  *
  * @param func the reducer function
  * @param acc the initial state
  * @returns a `Straw` that uses `func` to store state
  */
-export const accum1 = (func: Accum1Fn, acc: any) =>
-  accum((acc, val, time, event, emit) => {
+export const accum = (func: AccumFn, acc: any) =>
+  accumState((acc, val, time, event, emit) => {
     const newVal = func(acc, val, time, event, emit)
     return [newVal, newVal]
   }, acc)
 
 // <test
 {
-  const assert = test('accum, accum1')
-  const impoliteSumCounter = accum(
+  const assert = test('accumState, accum')
+  const impoliteSumCounter = accumState(
     ([a, c], b) => [
       [a + b, c + 1],
       a < 10 ? 'Back off ' + (c + 2) + ' times!' : a + b
@@ -358,7 +358,7 @@ export const accum1 = (func: Accum1Fn, acc: any) =>
     27,
     29
   ])
-  const sum = accum1((a, b) => a + b, 0)
+  const sum = accum((a, b) => a + b, 0)
   assert.stringEqual(run(sum, [3, 5, 9, 0, 14, 2]), [3, 8, 17, 17, 31, 33])
 }
 // test>
@@ -396,7 +396,7 @@ export interface HoldConditionFn {
  * @returns a holding values `Straw`
  */
 export const holdWhen = (condition: HoldConditionFn, straw: Straw) =>
-  accum(
+  accumState(
     ([straw, acc], val, time, event, emit) => {
       const [newStraw, result] = straw(val, time, event, emit)
       return condition(acc, result, time, event, emit)
@@ -455,7 +455,7 @@ export const hold = (straw: Straw) => holdWhen((acc, val) => val, straw)
  * @returns a `Straw` that will return values for at most `n` executions
  */
 export const take = (n: number, straw: Straw) =>
-  accum(
+  accumState(
     ([straw, acc], val, time, event, emit) => {
       if (acc === 0) return [[straw, acc], null]
       const [newStraw, newVal] = straw(val, time, event, emit)
@@ -483,11 +483,11 @@ export const once = (straw: Straw) => take(1, straw)
     null
   ])
   assert.stringEqual(
-    run(take(3, accum1((acc, val) => acc + val, 0)), [1, 2, 3, 4, 5]),
+    run(take(3, accum((acc, val) => acc + val, 0)), [1, 2, 3, 4, 5]),
     [1, 3, 6, null, null]
   )
   assert.stringEqual(
-    run(once(accum1((acc, val) => acc + val, 0)), [1, 2, 3, 4, 5]),
+    run(once(accum((acc, val) => acc + val, 0)), [1, 2, 3, 4, 5]),
     [1, null, null, null, null]
   )
 }

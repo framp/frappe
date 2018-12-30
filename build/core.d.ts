@@ -21,14 +21,14 @@ export declare const composeLeft: (...straws: any[]) => any;
 export declare const compose: (...straws: any[]) => any;
 export declare const split: (...straws: Straw[]) => any;
 export declare const fanout: (...straws: Straw[]) => any;
-export interface AccumFn {
+export interface AccumStateFn {
     (acc: any, val: any, time: number, event: FEvent, emit: EmitEvent): [any, any];
 }
-export declare const accum: (func: AccumFn, acc: any) => any;
-export interface Accum1Fn {
+export declare const accumState: (func: AccumStateFn, acc: any) => any;
+export interface AccumFn {
     (acc: any, val: any, time: number, event: FEvent, emit: EmitEvent): any;
 }
-export declare const accum1: (func: Accum1Fn, acc: any) => any;
+export declare const accum: (func: AccumFn, acc: any) => any;
 export declare const isStraw: (val: any) => boolean;
 export declare const constantify: (val: any) => Straw;
 export interface HoldConditionFn {

@@ -1,4 +1,4 @@
-import { constant, accum, compose, hold, Straw } from './core'
+import { constant, accumState, compose, hold, Straw } from './core'
 import { run } from './core' // <test>
 import { on } from './event' // <test>
 import test from './test' // <test>
@@ -97,7 +97,7 @@ export const dynamicStructure = (driver: DynamicDriver) => ({
   add = constant(false),
   remove = constant(false)
 }: DynamicActions = {}) =>
-  accum(
+  accumState(
     ([add, remove, acc], val, time, event, emit) => {
       const [newAdd, addTriggered] = add(val, time, event, emit)
       const [newRemove, removeTriggered] = remove(val, time, event, emit)

@@ -24,11 +24,11 @@ If you want to run a `Straw` twice, you should use the `nextStraw` being returne
 This simple pattern can be used to alter the behaviour of your `Straw` over executions and even to store state.
 
 ```
-import { of, run, accum } from '@framp/frappe'
+import { of, run, accumState } from '@framp/frappe'
 const sumAll = (state = 0) => of((val, time, event) => [sumAll(state+val), state+val])
 const results = run(sumAll(), [1,2,3,4,5])
 assert.equal(results, [1,3,6,10,15)
-const sumAll2 = accum((a, b) => a + b, 0) //equivalent to sumAll
+const sumAll2 = accumState((a, b) => a + b, 0) //equivalent to sumAll()
 ```
 
 The main advantage of this approach over global stores, is that state is kept locally and can be accessed easily and in a controlled way by composing `Straws` where you need them (more in the next section).

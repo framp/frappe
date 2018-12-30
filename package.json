@@ -1,6 +1,6 @@
 {
   "name": "@framp/frappe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -9,6 +9,9 @@
     "start": "parcel ./examples/index.html --open",
     "docs": "typedoc src",
     "build": "rm -rf no-test pre-build build && node strip-test.js && tsc --removeComments --outDir pre-build && mv pre-build/no-test build && rm -rf no-test pre-build"
+  },
+  "peerDependencies": {
+    "react": "*"
   },
   "devDependencies": {
     "@types/react": "^16.7.18",

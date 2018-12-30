@@ -9,19 +9,19 @@ exports.atTime = function (targetTime, margin) {
     });
 };
 exports.periodicTime = function (period) {
-    return core_1.accum(function (acc, val, time) {
+    return core_1.accumState(function (acc, val, time) {
         var newAcc = acc === null ? time : acc;
         return [newAcc, Math.floor(time / period) % 2 === 0];
     }, null);
 };
 exports.beforeTime = function (targetTime) {
-    return core_1.accum(function (acc, val, time) {
+    return core_1.accumState(function (acc, val, time) {
         var newAcc = acc === null ? time : acc;
         return [newAcc, time - newAcc <= targetTime];
     }, null);
 };
 exports.afterTime = function (targetTime) {
-    return core_1.accum(function (acc, val, time) {
+    return core_1.accumState(function (acc, val, time) {
         var newAcc = acc === null ? time : acc;
         return [newAcc, time - newAcc >= targetTime];
     }, null);

@@ -18,13 +18,13 @@ exports.on = function (_a, transformer) {
     });
 };
 exports.beforeEvent = function (targetEvent) {
-    return core_1.accum(function (acc, val, time, event, emit) {
+    return core_1.accumState(function (acc, val, time, event, emit) {
         var _a = exports.on(targetEvent, Boolean)(val, time, event, emit), happened = _a[1];
         return [!happened && acc, acc];
     }, true);
 };
 exports.afterEvent = function (targetEvent) {
-    return core_1.accum1(function (acc, val, time, event, emit) {
+    return core_1.accum(function (acc, val, time, event, emit) {
         var _a = exports.on(targetEvent, Boolean)(val, time, event, emit), happened = _a[1];
         return happened || acc;
     }, false);

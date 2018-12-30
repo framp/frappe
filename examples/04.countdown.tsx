@@ -1,7 +1,7 @@
 import React from 'react'
-import { fn, accum, compose } from '../src'
+import { fn, accumState, compose } from '../src'
 
-const countDown = accum(acc => [acc - 1, acc <= 0 ? 'BOOM' : acc], 5)
+const countDown = accumState(acc => [acc - 1, acc <= 0 ? 'BOOM' : acc], 5)
 
 const renderCountDown = fn(text => (
   <div>
