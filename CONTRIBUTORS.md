@@ -7,3 +7,5 @@ test after the code
 no dependencies
 
 npm run docs
+
+bumping version following semver

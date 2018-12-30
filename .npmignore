@@ -1,0 +1,13 @@
+.cache
+dist
+docs
+examples
+legacy
+src
+.gitignore
+.nvmrc
+CONTRIBUTORS.md
+strip-test.js
+tsconfig.json
+tslint.json
+typedoc.js

@@ -29,13 +29,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var react_1 = __importDefault(require("react"));
 var core_1 = require("./core");
-/**
- * It's a React component that will execute a `Straw` and render it.
- *
- * It will re-render every time there is a new event being triggered or whenever an update strategy fires.
- *
- */
-var ReactRunner = /** @class */ (function (_super) {
+var ReactRunner = (function (_super) {
     __extends(ReactRunner, _super);
     function ReactRunner(props) {
         var _this = _super.call(this, props) || this;
@@ -92,15 +86,6 @@ exports.animationFrameStrategy = function () { return ({
     mount: function (update) { return requestAnimationFrame(update); },
     unmount: function (id) { return cancelAnimationFrame(id); }
 }); };
-/**
- * It accepts an `event` (or array of `events`) and a `Straw` returning a React element and return a `Straw` which returns the React element extended with the needed event listeners, setup using the `type` property of the `event`.
- *
- * The events will be plugged via `ReactRunner` into the application and will be available to all the `Straws`.
- *
- * @param event an event (or array of `event`) to listen for
- * @param straw a Straw returning a React element to extend with the listeners from `event`
- * @returns a `Straw` returning the React element from `straw` with the event listeners from event
- */
 exports.listenOn = function (event, straw) {
     var events = [].concat(event);
     var ref = core_1.of(function (val, time, event, emit) {

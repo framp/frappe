@@ -1,5 +1,6 @@
 {
-  "name": "frappe",
+  "name": "@framp/frappe",
+  "version": "0.0.1",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -7,7 +8,7 @@
     "test": "ts-node src",
     "start": "parcel ./examples/index.html --open",
     "docs": "typedoc src",
-    "build": "rm -rf no-test pre-build build && node strip-test.js && tsc --outDir pre-build && mv pre-build/no-test build && rm -rf no-test pre-build"
+    "build": "rm -rf no-test pre-build build && node strip-test.js && tsc --removeComments --outDir pre-build && mv pre-build/no-test build && rm -rf no-test pre-build"
   },
   "devDependencies": {
     "@types/react": "^16.7.18",
