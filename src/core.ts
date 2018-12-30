@@ -1,4 +1,4 @@
-import test from './test' // {test}
+import test from './test' // <test>
 
 const STRAW_KEY = '__type'
 const STRAW_VALUE = 'Straw'
@@ -76,13 +76,13 @@ export const run = (
     [straw, []]
   )[1]
 
-// {test
+// <test
 {
   const assert = test('run')
   const aStraw = of(a => [aStraw, a * 2])
   assert.stringEqual(run(aStraw, [1, 2, 3, 4]), [2, 4, 6, 8])
 }
-// test}
+// test>
 
 /**
  * It's a `Straw` that returns always the value.
@@ -90,13 +90,13 @@ export const run = (
  * @returns a tuple containing the `id` `Straw` and the value passed.
  */
 export const id = of(val => [id, val])
-// {test
+// <test
 {
   const assert = test('id')
   assert.stringEqual(id.__type, STRAW_VALUE)
   assert.stringEqual(run(id, [1, 2, 3, 4]), [1, 2, 3, 4])
 }
-// test}
+// test>
 
 /**
  * It accepts a value `val` and return a `Straw` that will always return that `val`.
@@ -105,12 +105,12 @@ export const id = of(val => [id, val])
  * @returns a `Straw` that will always return `val`
  */
 export const constant = (val): Straw => of(a => [constant(val), val])
-// {test
+// <test
 {
   const assert = test('constant')
   assert.stringEqual(run(constant(42), [1, 2, 3, 4]), [42, 42, 42, 42])
 }
-// test}
+// test>
 
 /**
  * It accepts a function `func` and return a `Straw` that will execute `func` .
@@ -126,13 +126,13 @@ export const fn = (
   func: (val?: any, time?: number, event?: FEvent, emit?: EmitEvent) => any
 ): Straw =>
   of((val, time, event, emit) => [fn(func), func(val, time, event, emit)])
-// {test
+// <test
 {
   const assert = test('fn')
   const dfn = fn(a => a * 2)
   assert.stringEqual(run(dfn, [1, 2, 3, 4]), [2, 4, 6, 8])
 }
-// test}
+// test>
 
 const composeFrom = (reduce: string, ...straws: Array<Straw>) =>
   of((val, time, event, emit) => {
@@ -185,7 +185,7 @@ export const composeLeft = (...straws) => composeFrom('reduce', ...straws)
  */
 export const compose = (...straws) => composeFrom('reduceRight', ...straws)
 
-// {test
+// <test
 {
   const assert = test('compose')
   const bStraw = of(a => [bStraw, a * 3])
@@ -225,7 +225,7 @@ export const compose = (...straws) => composeFrom('reduceRight', ...straws)
     [18, 36, 54, 72]
   )
 }
-// test}
+// test>
 
 /**
  * It accepts N `straws` and returns a `Straw` that accepts an array `vals` of N values.
@@ -245,7 +245,7 @@ export const split = (...straws: Array<Straw>) =>
     return [split(...newStraws), newVals]
   })
 
-// {test
+// <test
 {
   const assert = test('split')
   const fStraw = of(a => [fStraw, a * 2])
@@ -268,7 +268,7 @@ export const split = (...straws: Array<Straw>) =>
     [[3, 2], [5, 5], [7, 8], [9, 11]]
   )
 }
-// test}
+// test>
 
 /**
  * It accepts N `straws` and returns a `Straw` that will accept a single value `val`.
@@ -286,7 +286,7 @@ export const fanout = (...straws: Array<Straw>) =>
     fn(val => straws.map(() => val))
 )
 
-// {test
+// <test
 {
   const assert = test('Test: fanout')
   const iStraw = of(a => [iStraw, a * 2])
@@ -296,7 +296,7 @@ export const fanout = (...straws: Array<Straw>) =>
   assert.stringEqual(fanout(iStraw, jStraw)(2)[1], [4, 6])
   assert.stringEqual(fanout(iStraw, jStraw, kStraw)(2)[1], [4, 6, 8])
 }
-// test}
+// test>
 
 export interface AccumFn {
   (acc: any, val: any, time: number, event: FEvent, emit: EmitEvent): [any, any]
@@ -340,7 +340,7 @@ export const accum1 = (func: Accum1Fn, acc: any) =>
     return [newVal, newVal]
   }, acc)
 
-// {test
+// <test
 {
   const assert = test('accum, accum1')
   const impoliteSumCounter = accum(
@@ -361,7 +361,7 @@ export const accum1 = (func: Accum1Fn, acc: any) =>
   const sum = accum1((a, b) => a + b, 0)
   assert.stringEqual(run(sum, [3, 5, 9, 0, 14, 2]), [3, 8, 17, 17, 31, 33])
 }
-// test}
+// test>
 
 /**
  * It accepts a value `val` and return a boolean indicating whether `val` is a `Straw` or not.
@@ -420,7 +420,7 @@ export const holdFirst = (straw: Straw) => holdWhen((acc, val) => !acc, straw)
  */
 export const hold = (straw: Straw) => holdWhen((acc, val) => val, straw)
 
-// {test
+// <test
 {
   const assert = test('hold')
   assert.stringEqual(
@@ -445,7 +445,7 @@ export const hold = (straw: Straw) => holdWhen((acc, val) => val, straw)
     [null, 1, 1, 3, 3, 3, 3, 5, 6]
   )
 }
-// test}
+// test>
 
 /**
  * It creates a `Straw` that invokes the given `straw` at most `n` times.
@@ -472,7 +472,7 @@ export const take = (n: number, straw: Straw) =>
  */
 export const once = (straw: Straw) => take(1, straw)
 
-// {test
+// <test
 {
   const assert = test('take')
   assert.stringEqual(run(take(2, id), [1, 2, 3, 4, 5]), [
@@ -491,7 +491,7 @@ export const once = (straw: Straw) => take(1, straw)
     [1, null, null, null, null]
   )
 }
-// test}
+// test>
 export interface ReduceFn {
   (
     acc: any,
@@ -525,7 +525,7 @@ export const reduce = (func: ReduceFn, acc: any, straws: Array<Straw>) =>
     return [reduce(func, acc, newStraws), newVal]
   })
 
-// {test
+// <test
 {
   const assert = test('reduce')
   const reducer: ReduceFn = (
@@ -550,7 +550,7 @@ export const reduce = (func: ReduceFn, acc: any, straws: Array<Straw>) =>
     [7, 8, 9, 10, 11]
   )
 }
-// test}
+// test>
 
 /**
  * It creates a `Straw` from a number of `Straws` which return a boolean to indicate if all the `Straws` outputs are truthy.
@@ -604,7 +604,7 @@ export const not = (straw: Straw) =>
     return [not(newStraw), !newVal]
   })
 
-// {test
+// <test
 {
   const assert = test('and, or, not')
   assert.equal(and(constant(true), constant(true))()[1], true)
@@ -617,7 +617,7 @@ export const not = (straw: Straw) =>
   assert.equal(or(constant(true), constant(false), constant(true))()[1], true)
   assert.equal(not(constant(true))()[1], false)
 }
-// test}
+// test>
 
 /**
  * It creates a `Straw` from a number of `Straws`, paired up in `conditions`, `effects`.
@@ -657,7 +657,7 @@ export const when = (...args: Array<Straw>) =>
     return [when(...newArgs), null]
   })
 
-// {test
+// <test
 {
   const assert = test('when')
   const ageCheck = when(
@@ -677,4 +677,4 @@ export const when = (...args: Array<Straw>) =>
     'adult'
   ])
 }
-// test}
+// test>

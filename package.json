@@ -1,10 +1,13 @@
 {
   "name": "frappe",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "pretty": "prettier --no-semi --single-quote --write src/*.ts examples/*.tsx && tslint src/*.ts examples/*.tsx --fix",
     "test": "ts-node src",
     "start": "parcel ./examples/index.html --open",
-    "docs": "typedoc src"
+    "docs": "typedoc src",
+    "build": "rm -rf no-test pre-build build && node strip-test.js && tsc --outDir pre-build && mv pre-build/no-test build && rm -rf no-test pre-build"
   },
   "devDependencies": {
     "@types/react": "^16.7.18",

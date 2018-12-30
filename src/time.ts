@@ -1,5 +1,5 @@
 import { run, fn, accum, and } from './core'
-import test from './test' // {test}
+import test from './test' // <test>
 
 /**
  * It's a `Straw` that returns always the time.
@@ -7,12 +7,12 @@ import test from './test' // {test}
  * @returns a tuple containing the `time` `Straw` and the `time` passed.
  */
 export const time = fn((val, time) => time)
-// {test
+// <test
 {
   const assert = test('time')
   assert.stringEqual(run(time, [1, 2, 3, 4], [3, 5, 6, 10]), [3, 5, 6, 10])
 }
-// test}
+// test>
 
 /**
  * It accepts a `targetTime` time and returns a `Straw` that will return true when time is `targetTime`.
@@ -71,7 +71,7 @@ export const afterTime = (targetTime: number) =>
 export const betweenTimes = (startTime: number, endTime: number) =>
   and(beforeTime(endTime), afterTime(startTime))
 
-// {test
+// <test
 {
   const assert = test(
     'atTime, periodicTime, beforeTime, afterTime, betweenTimes'
@@ -125,4 +125,4 @@ export const betweenTimes = (startTime: number, endTime: number) =>
     [false, false, false, true, true, true, false]
   )
 }
-// test}
+// test>
