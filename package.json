@@ -1,5 +1,6 @@
 {
   "name": "@framp/frappe",
+  "author": "Federico Rampazzo <frampone@gmail.com> (https://framp.me/)",
   "version": "0.0.2",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -8,7 +9,8 @@
     "test": "ts-node src",
     "start": "parcel ./examples/index.html --open",
     "docs": "typedoc src",
-    "build": "rm -rf no-test pre-build build && node strip-test.js && tsc --removeComments --outDir pre-build && mv pre-build/no-test build && rm -rf no-test pre-build"
+    "build": "rm -rf no-test pre-build build && node strip-test.js && tsc --removeComments --outDir pre-build && mv pre-build/no-test build && rm -rf no-test pre-build",
+    "prepare-pr": "npm run pretty && npm test && npm run docs && npm run build"
   },
   "peerDependencies": {
     "react": "*"
@@ -25,5 +27,6 @@
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.13.0",
     "typescript": "^3.2.2"
-  }
+  },
+  "license": "MIT"
 }
