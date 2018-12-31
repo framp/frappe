@@ -124,7 +124,7 @@ If you want your application to re-render more frequently you can use `timeStrat
 ```javascript
 import React from 'react'
 import { render }  from 'react-dom'
-import { fn, ReactRunner, timeStrategy, animationFrameStrategy, } from '@framp/frappe'
+import { fn, ReactRunner, timeStrategy, animationFrameStrategy } from '@framp/frappe'
 const app = fn((val, time, event) => [(
   <span>{time} ms passed</span>
   <span>{event ? An {event.type} event happened!}</span>
@@ -141,6 +141,11 @@ render(
   document.getElementById('app')
 ```
 
+You can execute these examples with this [index.html](https://github.com/framp/frappe/blob/master/examples/index.html) and using [Parcel](https://parceljs.org/).
+
+```bash
+parcel ./examples/index.html
+```
 
 ## hold, take, when
 
