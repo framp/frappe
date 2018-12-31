@@ -6,3 +6,4 @@
 - Add todoMVC example
 - Add view with the library's code in the documetation
 - Add examples in the documentation
+- Add a property on straws for predicting when a straw will be refreshed making for more efficient rendering

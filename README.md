@@ -1,3 +1,5 @@
+<img src="https://framp.me/frappe/img/frappe.svg" alt="Frappe" width="150"/>
+
 # Frappe
 
 Frappe is a library for defining UI components based on time and events.
@@ -12,7 +14,7 @@ Frappe is a library for defining UI components based on time and events.
 
 The main source of inspiration are Arrowised Functional Reactive Programming (aFRP) libraries like [Netwire](https://hackage.haskell.org/package/netwire) and [Yampa](https://wiki.haskell.org/Yampa).
 
-JavaScript is a vastly different language from Haskell - which translate to different developers expectations. When facing a choice between pragmatism / familiarity and purity, Frappe takes the pragmatic approach.
+JavaScript is a vastly different language from Haskell - which translates to different developers expectations. When facing a choice between pragmatism / familiarity and purity, Frappe takes the pragmatic approach.
 
 ## License
 MIT
