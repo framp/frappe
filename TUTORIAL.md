@@ -1,3 +1,5 @@
+<img src="https://framp.me/frappe/img/frappe.svg" alt="Frappe" width="150"/>
+
 # Frappe
 
 Frappe is a library for defining UI components based on time and events.

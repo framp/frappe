@@ -1,8 +1,9 @@
 import { constant, accumState, compose, hold, Straw } from './core'
-import { run } from './core' // <test>
-import { on } from './event' // <test>
-import test from './test' // <test>
-
+// #if TEST
+import { run } from './core'
+import { on } from './event'
+import test from './test'
+// #endif
 export interface DynamicDriver {
   new: () => any
   remove: (id: any) => (list: any) => any
@@ -134,7 +135,7 @@ export const dynamicArray = (actions: DynamicActions) =>
 export const dynamicMap = (actions: DynamicActions) =>
   dynamicStructure(mapDriver)(actions)
 
-// <test
+// #if TEST
 {
   const assert = test('dynamicStructure')
   const list = compose(
@@ -249,4 +250,4 @@ export const dynamicMap = (actions: DynamicActions) =>
     ]
   )
 }
-// test>
+// #endif

@@ -1,6 +1,8 @@
 import { fn, and, accumState, accum, FEvent } from './core'
-import { run } from './core' // <test>
-import test from './test' // <test>
+// #if TEST
+import { run } from './core'
+import test from './test'
+// #endif
 
 /**
  * It's a `Straw` that returns always the event.
@@ -8,7 +10,7 @@ import test from './test' // <test>
  * @returns a tuple containing the `event` `Straw` and the event passed.
  */
 export const event = fn((val?: any, time?: number, event?: FEvent) => event)
-// <test
+// #if TEST
 {
   const assert = test('event')
   assert.stringEqual(
@@ -21,7 +23,7 @@ export const event = fn((val?: any, time?: number, event?: FEvent) => event)
     [null, null, { type: 'click', ref: 'button' }, null]
   )
 }
-// test>
+// #endif
 
 /**
  * It accepts an event `targetEvent` and returns a `Straw` that will emit it.
@@ -56,7 +58,7 @@ export const on = (
       undefined
 )
 
-// <test
+// #if TEST
 {
   const assert = test('on')
   const listener = on({ type: 'click', ref: 'button' })
@@ -88,7 +90,7 @@ export const on = (
     [null, null, true, null]
   )
 }
-// test>
+// #endif
 
 /**
  * It accepts an event `targetEvent` and returns a `Straw` that will return true until that event happens (inclusive of when `targetEvent` happens).
@@ -122,7 +124,7 @@ export const afterEvent = (targetEvent: FEvent) =>
 export const betweenEvents = (eventStart: FEvent, eventEnd: FEvent) =>
   and(afterEvent(eventStart), beforeEvent(eventEnd))
 
-// <test
+// #if TEST
 {
   const assert = test('beforeEvent, afterEvent, between')
   assert.stringEqual(
@@ -177,4 +179,4 @@ export const betweenEvents = (eventStart: FEvent, eventEnd: FEvent) =>
     [false, true, true, true, false, false]
   )
 }
-// test>
+// #endif

@@ -1,7 +1,9 @@
 import React from 'react'
 import { of, Straw, FEvent } from './core'
-import { constant } from './core' // <test>
-import test from './test' // <test>
+// #if TEST
+import { constant } from './core'
+import test from './test'
+// #endif
 
 interface ReactRunnerStrategy {
   mount: (update: (FEvent) => void) => any
@@ -130,7 +132,7 @@ export const listenOn = (event: Array<FEvent> | FEvent, straw: Straw) => {
   return ref
 }
 
-// <test
+// #if TEST
 {
   const assert = test('listenOn')
   const fakeReactElement = constant({ props: { onSubmit: () => null } })
@@ -164,4 +166,4 @@ export const listenOn = (event: Array<FEvent> | FEvent, straw: Straw) => {
   }
   element3(null, null, null, emitSpy)[1].props.onClick({ hello: 'data' })
 }
-// test>
+// #endif

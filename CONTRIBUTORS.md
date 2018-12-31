@@ -1,3 +1,5 @@
+<img src="https://framp.me/frappe/img/frappe.svg" alt="Frappe" width="150"/>
+
 # Frappe
 
 ## Contributors Guidelines
@@ -23,19 +25,19 @@ Before finishing a PR, please remember to run `npm run prepare-pr`.
 Tests are written immediately after the function you're writing.
 
 ```javascript
-import test from './test' // <test>
+// #if TEST
+import test from './test'
+// #endif
 export const time = fn((val, time) => time)
-// <test
+// #if TEST
 {
   const assert = test('time')
   assert.stringEqual(run(time, [1, 2, 3, 4], [3, 5, 6, 10]), [3, 5, 6, 10])
 }
-// test>
+// #endif
 ```
 
-Adding a `// <test>` comment will cause the [build script](https://github.com/framp/frappe/blob/master/strip-test.js) to strip the line.
-
-Adding matching comments `// <test` and `// test>`, will cause all the lines between them to be stripped.
+Adding matching comments `// #if TEST` and `// #endif`, will cause all the lines between them to be stripped.
 
 Don't write tests if they don't add value.
 

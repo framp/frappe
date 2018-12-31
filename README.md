@@ -6,9 +6,17 @@ Frappe is a library for defining UI components based on time and events.
 
  - [Read the tutorial](https://github.com/framp/frappe/blob/master/TUTORIAL.md)
  - [Check out the examples](https://github.com/framp/frappe/blob/master/examples)
- - [Check the documentation](https://framp.me/frappe/docs)
+ - [Check out the documentation](https://framp.me/frappe/docs)
  - [Contribute](https://github.com/framp/frappe/blob/master/CONTRIBUTORS.md)
- - [Check current TODOs](https://github.com/framp/frappe/blob/master/TODO.md)
+ - [Check out the current TODOs](https://github.com/framp/frappe/blob/master/TODO.md)
+ - [Check out the main website](https://framp.me/frappe)
+
+
+## Install
+
+```bash
+npm i @framp/frappe
+```
 
 ## Inspiration
 

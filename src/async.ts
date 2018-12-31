@@ -1,7 +1,8 @@
 import { fn, FEvent, EmitEvent } from './core'
-import { run } from './core' // <test>
-import test from './test' // <test>
-
+// #if TEST
+import { run } from './core'
+import test from './test'
+// #endif
 interface PromiseFn {
   (val: any, time: number, event: FEvent, emit: EmitEvent): Promise<any>
 }
@@ -20,7 +21,7 @@ export const promise = (func: PromiseFn) => {
   })
   return ref
 }
-// <test
+// #if TEST
 {
   const assert = test('promise')
   const delay = t =>
@@ -34,4 +35,4 @@ export const promise = (func: PromiseFn) => {
     [null, null, null, null]
   )
 }
-// test>
+// #endif

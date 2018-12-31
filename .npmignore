@@ -1,3 +1,4 @@
+.rpt2_cache
 .cache
 dist
 docs
@@ -7,7 +8,7 @@ src
 .gitignore
 .nvmrc
 CONTRIBUTORS.md
-strip-test.js
 tsconfig.json
 tslint.json
 typedoc.js
+rollup.config.js

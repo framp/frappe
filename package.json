@@ -1,15 +1,18 @@
 {
   "name": "@framp/frappe",
   "author": "Federico Rampazzo <frampone@gmail.com> (https://framp.me/)",
-  "version": "0.1.0",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "version": "0.1.1",
+  "main": "build/frappe.js",
+  "unpkg": "build/umd/frappe.js",
+  "module": "build/es/frappe.js",
+  "typings": "build/src/index.d.ts",
+  "types": "build/src/index.d.ts",
   "scripts": {
     "pretty": "prettier --no-semi --single-quote --write src/*.ts examples/*.tsx && tslint src/*.ts examples/*.tsx --fix",
     "test": "ts-node src",
     "start": "parcel ./examples/index.html --open",
     "docs": "typedoc src",
-    "build": "rm -rf no-test pre-build build && node strip-test.js && tsc --removeComments --outDir pre-build && mv pre-build/no-test build && rm -rf no-test pre-build",
+    "build": "rollup -c",
     "prepare-pr": "npm run pretty && npm test && npm run docs && npm run build"
   },
   "peerDependencies": {
@@ -17,11 +20,14 @@
   },
   "devDependencies": {
     "@types/react": "^16.7.18",
-    "eslint-plugin-typescript": "^0.14.0",
     "parcel-bundler": "^1.11.0",
     "prettier": "^1.15.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "rollup": "^1.0.0",
+    "rollup-plugin-re": "^1.0.7",
+    "rollup-plugin-terser": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.18.1",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.0",
     "tslint-config-standard": "^8.0.1",
