@@ -2,18 +2,24 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"/>
   <title>Frappe</title>
   <meta name="description" content="A library for defining UI components based on time and events"/>
-  <meta property="og:title" content="Frappe">
-  <meta property="og:description" content="A library for defining UI components based on time and events">
-  <meta property="og:image" content="https://framp.me/frappe/img/frappe.png">
-  <meta property="og:url" content="https://framp.me/frappe">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:site_name" content="Frappe">
-  <meta name="twitter:image:alt" content="Frappe">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Pacifico" rel="stylesheet">
+  <meta property="og:title" content="Frappe"/>
+  <meta property="og:description" content="A library for defining UI components based on time and events"/>
+  <meta property="og:image" content="https://framp.me/frappe/img/frappe.png"/>
+  <meta property="og:url" content="https://framp.me/frappe"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta property="og:site_name" content="Frappe"/>
+  <meta name="twitter:image:alt" content="Frappe"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Pacifico" rel="stylesheet"/>
   <style>
+    html,body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
     body {
       padding-top: 20px;
       text-align: center;
@@ -30,18 +36,23 @@
     }
     h1 {
       font-family: 'Pacifico', cursive;
-      font-size: 50px;
+      font-size: 300%;
       font-weight: 100;
       color: #700d00;
       margin-top: -20px;
     }
     h2 {
+      margin-top: -25px;
+      padding-left: 10px;
+      padding-right: 10px;
       font-weight: 100;
       color: #4E0300;
     }
     #menu {
       display: flex;
-      width: 840px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 840px;
       margin: auto;
     }
     #menu a {
@@ -60,6 +71,7 @@
     }
     footer {
       margin-top: 20px;
+      margin-bottom: 20px;
     }
     footer p {
       margin: 0px;
@@ -69,6 +81,18 @@
     }
     footer a:hover {
       color: #700d00;
+    }
+
+    @media only screen and (max-width : 854px) {
+      #logo {
+        width: 125px;
+      }
+      #menu a {
+        width: 100%;
+      }
+      #content h2 {
+        font-size: 120%;
+      }
     }
   </style>
 </head>
@@ -91,7 +115,7 @@
 
     <footer>
       <p>Artwork by <a href="https://www.frncn.com">Francesca Negro</a></p>
-      <p>Frappe is maintained with ♥ by <a href="https://framp.me">Federico Rampazzo</a></p>
+      <p>Frappe is maintained by <a href="https://framp.me">Federico Rampazzo</a></p>
     </footer>
   </div>
 </body>
