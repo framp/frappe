@@ -11,10 +11,10 @@
     "pretty": "prettier --no-semi --single-quote --write src/*.ts examples/*.tsx && tslint src/*.ts examples/*.tsx --fix",
     "test": "ts-node src",
     "start": "parcel ./examples/index.html --open",
-    "docs": "typedoc src && parcel build --public-url /frappe/examples/ ./examples/index.html",
+    "docs": "typedoc src && parcel build --public-url /frappe/examples/ --out-dir examples-build ./examples/index.html",
     "build": "rollup -c",
     "prepare-pr": "npm run pretty && npm test && npm run docs && npm run build",
-    "publish-docs": "cd ../frappe-site && rm -rf docs examples && cp -R ../frappe/docs . && cp -R ../frappe/dist examples&& git add -A . && git commit -m \"Update docs and examples\" && git push"
+    "publish-docs": "cd ../frappe-site && rm -rf docs examples && mv ../frappe/docs . && mv ../frappe/examples-build examples && git add -A . && git commit -m \"Update docs and examples\" && git push"
   },
   "peerDependencies": {
     "react": "*"

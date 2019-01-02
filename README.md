@@ -15,7 +15,7 @@ Frappe is a library for defining UI components based on time and events.
 ## Install
 
 ```bash
-npm i @framp/frappe
+npm i @framp/frappe react react-dom
 ```
 
 ## Inspiration
