@@ -15,5 +15,5 @@ npm i
 npm start
 ```
 
-You can also use this [Fiddle](https://jsfiddle.net/framp/onr01tmz/).
+You can also use this [JSFiddle](https://jsfiddle.net/framp/onr01tmz/).
 

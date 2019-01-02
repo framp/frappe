@@ -4,6 +4,10 @@
 
 Frappe is a library for defining UI components based on time and events.
 
+If you have some doubts, please consult the [documentation](https://framp.me/frappe/docs/).
+
+*Code snippets are not available in the documentation right now, but you can find relevant tests right after every function's implementation in the [code](https://github.com/framp/frappe/blob/master/src/core.ts)*
+
 ## Setup
 
 To get started, you may want to install the library, [React](https://reactjs.org/) and [Parcel](https://parceljs.org/).
@@ -13,11 +17,25 @@ mkdir frappe-test && cd frappe-test
 npm i @framp/frappe react react-dom parcel
 ```
 
-You can also use this [Fiddle](https://jsfiddle.net/framp/onr01tmz/).
+You can execute the React based examples with this [index.html](https://github.com/framp/frappe/blob/master/examples/index.html), using [Parcel](https://parceljs.org/) and saving the code in `index.tsx`.
+
+```bash
+curl https://raw.githubusercontent.com/framp/frappe/master/examples/index.html > index.html
+curl https://raw.githubusercontent.com/framp/frappe/master/tsconfig.json > tsconfig.json
+parcel index.html
+```
+
+You can also use this [JSFiddle](https://jsfiddle.net/framp/onr01tmz/).
 
 ## Straws
 
-The main building block is called `Straw` and it's a function which accepts 3 parameters `val`, `time`, `event` and returns an array containing a `next` `Straw` and a result.
+The main building block in Frappe is called `Straw`.
+
+A `Straw` has inputs and an output, exactly like a function, and it will be called multiple time during a normal run of your application.
+
+It can return any type of data: Numbers, Strings, Objects, Arrays, React components.
+
+It's implemented as a function which accepts 3 parameters `val`, `time`, `event` and returns an array containing a `next Straw` and a result.
 
 ```javascript
 import { of } from '@framp/frappe'
@@ -28,7 +46,9 @@ const [nextNextStraw, nextResult] = nextStraw(5, 1000, null)
 assert.equal(nextResult, 10)
 ```
 
-In this case our `Straw` `double` is returning itself for the next call.
+After the first call to your `Straw`, `nextStraw` will be called in place of your original `Straw`: this enables us to modify its behaviour in the next calls.
+
+In this example our `Straw double` is returning itself for the next call, so this `Straw` will behave identically in all its runs.
 In this case we can replace `of` with `fn`, which will automatically return the same `Straw` for us.
 
 ```
@@ -73,7 +93,7 @@ As we saw in the introduction, running a `Straw` means calling it as a function 
 
 If you want to run a `Straw` twice, you should use the `nextStraw` being returned for the second call.
 
-This simple pattern can be used to alter the behaviour of your `Straw` over executions and even to store state.
+This simple pattern can be used to alter the behaviour of your `Straw` over executions - and even to store state.
 
 ```javascript
 import { of, run, accumState } from '@framp/frappe'
@@ -111,15 +131,9 @@ const results = run(fanout(double, plus1), [1,2,3,4,5])
 assert.equal(results, [[2,2], [4,3], [6,4], [8,5], [10,6]])
 ```
 
+With this primitives we can compose `Straws`, from tiny functions to complex applications.
+
 ## React
-
-You can execute the following examples with this [index.html](https://github.com/framp/frappe/blob/master/examples/index.html), using [Parcel](https://parceljs.org/) and saving the code in `index.tsx`.
-
-```bash
-curl https://raw.githubusercontent.com/framp/frappe/master/examples/index.html > index.html
-curl https://raw.githubusercontent.com/framp/frappe/master/tsconfig.json > tsconfig.json
-parcel index.html
-```
 
 A `Straw` returning a React element can be rendered using `ReactRunner`.
 
@@ -135,7 +149,7 @@ const app = fn((val, time, event) => (
 const options = {
   verbose: true,
   updateStrategies: [
-    timeStrategy(100), // Refresh every second
+    timeStrategy(1000), // Refresh every second
   ]
 }
 render(
@@ -144,41 +158,43 @@ render(
 )
 ```
 
-With `ReactRunner` you can also inject easily a Frappe based application inside an existing React application.
+With `ReactRunner` you can also easily inject a Frappe based application inside an existing React application.
 
-By default `ReactRunner` will only re-render when an event is emitted. 
+By default `ReactRunner` will only re-render when an event is emitted.
+
 If you want your application to re-render more frequently you can use `timeStrategy` or `animationFrameStrategy`.
 
-```javascript
-import React from 'react'
-import { render }  from 'react-dom'
-import { fn, ReactRunner, timeStrategy, animationFrameStrategy } from '@framp/frappe'
-const app = fn((val, time, event) => [(
-  <span>{time} ms passed</span>
-  <span>{event ? An {event.type} event happened!}</span>
-)])
-const options = {
-  verbose: true,
-  updateStrategies: [
-    animationFrameStrategy, // Refresh before every repaint
-  ]
-}
-render(
-  <ReactRunner straw={app} options={options} />,
-  document.getElementById('app')
-```
+*In the future, `Straws` will be able to let `ReactRunner` know when they need to be called, making strategies obsolete.*
 
 ## Events
 
-on
+TODO
 
-listenOn
+You can listen to events happening in the system with `on`.
 
-events + async
+`on` accepts an Object with optional `type`, `ref` and `id` and it will return the event when
+
+```javascript
+const listener = on({ type: 'click', ref: 'button' })
+
+```
+
+
+*In the future, Frappe will be able to parse the calls to on and automatically handle setting up event listeners for you, making `listenOn` obsolete.*
 
 ## Time
 
+TODO
+
 A few combinators to deal with time 
+
+
+## Asynchronous actions
+
+TODO
+
+async
+
 
 ## Straw utilities
 Frappe provides some handy utilities for dealing with `Straws`.
@@ -223,7 +239,14 @@ asserts.deepEqual(resultsWhen, [null, null, null, 2, 2, 4])
 
 ## store
 
+TODO
 
 ## Conclusions
 
+TODO
+
 That's it!
+
+I hope you enjoyed this tour of Frappe.
+
+There are a lot of features to build, so if you're interested in 
