@@ -25,7 +25,7 @@ const straws = {
 
 const options = {
   verbose: true,
-  updateStrategies: [timeStrategy(5000)]
+  updateStrategies: [timeStrategy(500)]
 }
 render(
   <ReactRunner straw={router(straws)} options={options} />,
