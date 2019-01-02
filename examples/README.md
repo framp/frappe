@@ -4,7 +4,7 @@
 
 ## How to see the examples
 
-You can see them here: [Fiddle](https://framp.me/frappe/examples).
+You can see them [here](https://framp.me/frappe/examples).
 
 ## How to run the examples
 
