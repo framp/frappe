@@ -1,7 +1,8 @@
 {
   "name": "@framp/frappe",
+  "description": "A library for defining UI components based on time and events",
   "author": "Federico Rampazzo <frampone@gmail.com> (https://framp.me/)",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "build/frappe.js",
   "unpkg": "build/umd/frappe.js",
   "module": "build/es/frappe.js",

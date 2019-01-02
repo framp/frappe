@@ -1,6 +1,6 @@
 node_modules
 .cache
-dist
+examples-build
 .rpt2_cache
 build
 docs
