@@ -43,7 +43,7 @@ It can return any type of data: Numbers, Strings, Objects, Arrays, React compone
 
 It's implemented as a function which accepts 3 parameters `val`, `time`, `event` and returns an array containing a `next Straw` and a result.
 
-```javascript
+```jsx
 import { of } from '@framp/frappe'
 const double = of((val, time, event) => [double, val*2])
 const [nextStraw, result] = double(4, 0, null)
@@ -57,7 +57,7 @@ After the first call to your `Straw`, `nextStraw` will be called in place of you
 In this example our `Straw double` is returning itself for the next call, so this `Straw` will behave identically in all its runs.
 In this case we can replace `of` with `fn`, which will automatically return the same `Straw` for us.
 
-```
+```jsx
 import { of, fn } from '@framp/frappe'
 const double = fn((val, time, event) => val*2)
 const tripleThenDoubleForever = of((val, time, event) => [double, val*3])
@@ -73,7 +73,7 @@ assert.equal(nextResult, 10)
 
 You can use `time` to return time dependent results.
 
-```javascript
+```jsx
 import { fn } from '@framp/frappe'
 const oneSecondAfter = fn((val, time, event) => time+1000)
 const [nextStraw, result] = oneSecondAfter(null, 0, null)
@@ -84,7 +84,7 @@ assert.equal(nextResult, 2000)
 
 By checking the `event` parameter, you can react to events happening in the system.
 
-```javascript
+```jsx
 import { of } from '@framp/frappe'
 const onButtonClick = fn((val, time, event) => event.type === 'click')
 const [nextStraw, result] = onButtonClick(null, 0, null)
@@ -101,7 +101,7 @@ If you want to run a `Straw` twice, you should use the `nextStraw` being returne
 
 This simple pattern can be used to alter the behaviour of your `Straw` over executions - and even to store state.
 
-```javascript
+```jsx
 import { of, run, accumState } from '@framp/frappe'
 const sumAll = (state = 0) => of((val, time, event) => [sumAll(state+val), state+val])
 const results = run(sumAll(), [1,2,3,4,5])
@@ -118,7 +118,7 @@ The main advantage over a mutable state approach (like `setState` in React) is c
 `Straws` can be composed together using `compose`; each `Straw` will send its result down to the next `Straw` as the `val` parameter.
 `time` and `event` will stay the same for all the `Straws`.
 
-```javascript
+```jsx
 import { fn, accum compose, run } from '@framp/frappe'
 const double = fn(val => val*2)
 const plus1 = fn(val => val+1)
@@ -129,7 +129,7 @@ assert.equal(results, [(1+1)*2,(3+1)*2,(6+1)*2,(10+1)*2,(15+1)*2)
 
 If you want to run `Straws` in parallel on the same value you can use `fanout`.
 
-```javascript
+```jsx
 import { fn, fanout run } from '@framp/frappe'
 const double = fn(val => val*2)
 const plus1 = fn(val => val+1)
@@ -143,7 +143,7 @@ With this primitives we can compose `Straws`, from tiny functions to complex app
 
 A `Straw` returning a React element can be rendered using `ReactRunner`.
 
-```javascript
+```jsx
 import React from 'react'
 import { render }  from 'react-dom'
 import { fn, ReactRunner, timeStrategy } from '@framp/frappe'
@@ -174,7 +174,7 @@ If you want your application to re-render more frequently you can use `timeStrat
 
 For the sake of brevity, we will assume in the following examples a file `index.tsx` which run our application.
 
-```javascript
+```jsx
 import React from 'react'
 import { render }  from 'react-dom'
 import { fn, ReactRunner, animationFrameStrategy } from '@framp/frappe'
@@ -198,7 +198,7 @@ You can listen to events happening in the system with `on`.
 
 `on` accepts an Object with optional `type`, `ref` and `id` and it will return the event when
 
-```javascript
+```jsx
 import React from 'react'
 import { fn, on, listenOn, compose, fanout } from '@framp/frappe'
 
@@ -217,7 +217,7 @@ export default compose(render, fanout(button, listener))
 `ref` (and `id`) can be anything, even a reference to a `Straw`! 
 
 An event Object will look this:
-```javascript
+```jsx
 {
   type: "click",
   ref: Straw,
@@ -244,7 +244,7 @@ Frappe provides a few utilities to generate useful `Straws` to deal with time an
 
 Let's check out an example!
 
-```javascript
+```jsx
 import React from 'react'
 import { fn, on, listenOn, betweenEvents, compose, fanout, when, restartWhen, afterTime } from '@framp/frappe'
 
@@ -287,9 +287,9 @@ We can plug asynchronous actions in our event system using `promise`.
 
 `promise` accepts a Promise returning function and it returns a `Straw` that will call your code and emit a `promise-resolve` or a `promise-error`.
 
-```javascript
+```jsx
 import React from 'react'
-import { fn, when, hold, promise, on, listenOn } from '@framp/frappe'
+import { fn, when, hold, promise, on, listenOn, compose, fanout } from '@framp/frappe'
 
 const kittyRequest = promise(() =>
   fetch(
@@ -325,7 +325,7 @@ Frappe provides some handy utilities for dealing with `Straws`.
 `when` will accept an even number of `Straws`, logically paired up in `condition` and `action`.
 The first `action` whose `condition` returned a truthy value, will be returned.
 
-```javascript
+```jsx
 import { run, when } from '@framp/frappe'
 const ageCheck = when(
   fn(v => v < 18),
@@ -341,7 +341,7 @@ asserts.deepEqual(run(ageCheck), [15, 13, 18, 20, 18], ['minor', 'minor', '18', 
 `hold` will remember the last time a `Straw` returned a truthy value and keep returning that value until the `Straw` start returning a truthy value again.
 If you need more advanced functionalities, you can use `holdWhen`, which will accept a predicate to establish whether the value need to be held or not.
 
-```javascript
+```jsx
 import { run, hold, holdWhen, id} from '@framp/frappe'
 const results = run(hold(id), [null, 1, null, 2, 3, 4])
 asserts.deepEqual(results, [null, null, null, 2, 2, 4],)
@@ -352,7 +352,7 @@ asserts.deepEqual(resultsWhen, [null, null, null, 2, 2, 4])
 `take` will run a `Straw` only a limited number of times and return `null` afterwards.
 It's especially useful when you want to fire off things once.
 
-```javascript
+```jsx
 import { run, hold, holdWhen, id} from '@framp/frappe'
 const results = run(hold(id), [null, 1, null, 2, 3, 4])
 asserts.deepEqual(results, [null, null, null, 2, 2, 4],)
@@ -369,7 +369,7 @@ As we saw before we can use `Straws` to store state.
 By providing an `add Straw`, a `dynamicArray` or map can understand when it needs to treat its `val` as input and store another element in the Array.
 By providing a `remove Straw`, a `dynamicArray` can read the event `id` property to delete the element at index `id`.
 
-```javascript
+```jsx
 import React from 'react'
 import { listenOn, hold, on, fn, compose, fanout, dynamicArray } from '../src'
 
