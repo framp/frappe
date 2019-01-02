@@ -10,7 +10,7 @@ const render = fn((startingDate, time) => {
   )
 })
 
-const startingDate = holdFirst(fn(() => +new Date()))
+const startingDate = holdFirst(fn((val, time) => +new Date() - time))
 
 export default compose(
   render,

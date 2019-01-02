@@ -17,6 +17,7 @@ export interface EmitEvent {
 export interface Straw {
   (val?: any, time?: number, event?: FEvent, emit?: EmitEvent): [Straw, any]
   __type: 'Straw'
+  __update?: Boolean
 }
 
 /**
@@ -625,37 +626,38 @@ export const not = (straw: Straw) =>
  *
  * All the `Straws` with a even index will be assumed to be conditions, all the `Straws` with an odd index will be assumed to be the `Straws` to be executed.
  *
- * `when` will go through each `condition` in order; as soon as a condition with a truthy value is found the respective `effect` will be executed and returned.
+ * `when` will execute all `conditions` in order; when the first condition with a truthy value is found the respective `effect` will be executed and returned.
  *
- * Unevaluated `conditions` and unevaluated `effects` won't be executed.
+ * Unevaluated `effects` won't be executed.
+ *
+ * `effects` `Straws` with the property `__update` set to a truthy value, will be executed in any case.
  *
  * @param straws the `Straws` paired up in `conditions` and `effects`
  * @returns a `Straw` that will return the first `effect` found with a `truthy` condition
  */
-export const when = (...args: Array<Straw>) =>
+export const when = (...straws: Array<Straw>) =>
   of((val, time, event, emit) => {
-    const indexedArgs = args.map((val, i): [Straw, number] => [val, i])
-    const conditions = indexedArgs.filter(([val, i]) => i % 2 === 0)
-    let newArgs = args.slice()
-    for (let i = 0; i < conditions.length; i++) {
-      const [condition, conditionArgIndex] = conditions[i]
-      const [conditionStraw, conditionVal] = condition(val, time, event, emit)
-      if (!conditionVal) {
-        newArgs = newArgs
-          .slice(0, conditionArgIndex)
-          .concat(conditionStraw)
-          .concat(newArgs.slice(conditionArgIndex + 1))
-        continue
-      }
-      const result = args[conditionArgIndex + 1]
-      const [resultStraw, resultVal] = result(val, time, event, emit)
-      newArgs = newArgs
-        .slice(0, conditionArgIndex)
-        .concat([conditionStraw, resultStraw])
-        .concat(newArgs.slice(conditionArgIndex + 2))
-      return [when(...newArgs), resultVal]
-    }
-    return [when(...newArgs), null]
+    const [newStraws, newVals] = straws.reduce(
+      ([newStraws, newVals], straw, index) => {
+        const lastVal = newVals.length && newVals[newVals.length - 1]
+        if (index % 2 !== 0 && !straw.__update && !lastVal) {
+          return [newStraws.concat(straw), newVals.concat(null)]
+        }
+        const [newStraw, newVal] = straw(val, time, event, emit)
+        if (straw.__update) newStraw.__update = straw.__update
+        return [newStraws.concat(newStraw), newVals.concat(newVal)]
+      },
+      [[], []]
+    )
+    const [found, result] = newVals.reduce(
+      ([found, result], val, index) => {
+        if (index % 2 !== 0 && found === index - 1) return [found, val]
+        if (index % 2 === 0 && found === -1 && val) return [index, null]
+        return [found, result]
+      },
+      [-1, null]
+    )
+    return [when(...newStraws), result]
   })
 
 // #if TEST
@@ -676,6 +678,47 @@ export const when = (...args: Array<Straw>) =>
     '18',
     'adult',
     'adult'
+  ])
+}
+// #endif
+
+/**
+ * It creates a `Straw` from a `condition` and an `effect` `Straws`.
+ *
+ * `effect` will be executed by default.
+ *
+ * When `condition` returns a truthy value, the current `effect` `Straw` will be replaced with the original `effect`
+ *
+ * @param condition the `Straw` used to check if the `effect` needs to be restarted
+ * @param effect the `Straw` to execute and optionally restart
+ * @returns a `Straw` that will execute `effect` and restart it on occasion
+ */
+export const restartWhen = (condition: Straw, effect: Straw) =>
+  accumState(
+    ([condition, effect, current], val, time, event, emit) => {
+      const [conditionStraw, conditionVal] = condition(val, time, event, emit)
+      const target = conditionVal ? effect : current
+      const [targetStraw, targetVal] = target(val, time, event, emit)
+      return [[conditionStraw, effect, targetStraw], targetVal]
+    },
+    [condition, effect, effect]
+)
+
+// #if TEST
+{
+  const assert = test('restartWhen')
+  const ageCheck = restartWhen(fn(v => v === 3), accum((a, b) => a + b, 0))
+  assert.stringEqual(run(ageCheck, [1, 2, 3, 4, 4, 3, 6, 7, 3, 3]), [
+    1,
+    3,
+    3,
+    7,
+    11,
+    3,
+    9,
+    16,
+    3,
+    3
   ])
 }
 // #endif

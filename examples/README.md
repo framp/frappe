@@ -2,6 +2,10 @@
 
 # Frappe
 
+## How to see the examples
+
+You can see them here: [Fiddle](https://framp.me/frappe/examples).
+
 ## How to run the examples
 
 ```bash
@@ -10,3 +14,6 @@ cd frappe
 npm i
 npm start
 ```
+
+You can also use this [Fiddle](https://jsfiddle.net/framp/onr01tmz/).
+

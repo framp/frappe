@@ -1,7 +1,7 @@
 {
   "name": "@framp/frappe",
   "author": "Federico Rampazzo <frampone@gmail.com> (https://framp.me/)",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "build/frappe.js",
   "unpkg": "build/umd/frappe.js",
   "module": "build/es/frappe.js",
@@ -11,7 +11,7 @@
     "pretty": "prettier --no-semi --single-quote --write src/*.ts examples/*.tsx && tslint src/*.ts examples/*.tsx --fix",
     "test": "ts-node src",
     "start": "parcel ./examples/index.html --open",
-    "docs": "typedoc src",
+    "docs": "typedoc src && parcel build ./examples/index.html",
     "build": "rollup -c",
     "prepare-pr": "npm run pretty && npm test && npm run docs && npm run build"
   },

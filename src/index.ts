@@ -22,7 +22,8 @@ export {
   and,
   or,
   not,
-  when
+  when,
+  restartWhen
 } from './core'
 export {
   time,

@@ -4,6 +4,17 @@
 
 Frappe is a library for defining UI components based on time and events.
 
+## Setup
+
+To get started, you may want to install the library, [React](https://reactjs.org/) and [Parcel](https://parceljs.org/).
+
+```bash
+mkdir frappe-test && cd frappe-test
+npm i @framp/frappe react react-dom parcel
+```
+
+You can also use this [Fiddle](https://jsfiddle.net/framp/onr01tmz/).
+
 ## Straws
 
 The main building block is called `Straw` and it's a function which accepts 3 parameters `val`, `time`, `event` and returns an array containing a `next` `Straw` and a result.
@@ -102,18 +113,33 @@ assert.equal(results, [[2,2], [4,3], [6,4], [8,5], [10,6]])
 
 ## React
 
+You can execute the following examples with this [index.html](https://github.com/framp/frappe/blob/master/examples/index.html), using [Parcel](https://parceljs.org/) and saving the code in `index.tsx`.
+
+```bash
+curl https://raw.githubusercontent.com/framp/frappe/master/examples/index.html > index.html
+curl https://raw.githubusercontent.com/framp/frappe/master/tsconfig.json > tsconfig.json
+parcel index.html
+```
+
 A `Straw` returning a React element can be rendered using `ReactRunner`.
 
 ```javascript
 import React from 'react'
 import { render }  from 'react-dom'
-import { fn, ReactRunner } from '@framp/frappe'
-const app = fn((val, time, event) => [(
-  <span>{time} ms passed</span>
-  <span>{event ? An {event.type} event happened!}</span>
-)])
+import { fn, ReactRunner, timeStrategy } from '@framp/frappe'
+const app = fn((val, time, event) => (
+  <div>
+    <span>{time} ms passed</span>
+    <span>{event ? `An ${event.type} event happened!` : ''}</span>
+  </div>))
+const options = {
+  verbose: true,
+  updateStrategies: [
+    timeStrategy(100), // Refresh every second
+  ]
+}
 render(
-  <ReactRunner straw={app} />,
+  <ReactRunner straw={app} options={options} />,
   document.getElementById('app')
 )
 ```
@@ -134,7 +160,6 @@ const app = fn((val, time, event) => [(
 const options = {
   verbose: true,
   updateStrategies: [
-    timeStrategy(1000), // Refresh every second
     animationFrameStrategy, // Refresh before every repaint
   ]
 }
@@ -143,16 +168,62 @@ render(
   document.getElementById('app')
 ```
 
-You can execute these examples with this [index.html](https://github.com/framp/frappe/blob/master/examples/index.html) and using [Parcel](https://parceljs.org/).
+## Events
 
-```bash
-parcel ./examples/index.html
+on
+
+listenOn
+
+events + async
+
+## Time
+
+A few combinators to deal with time 
+
+## Straw utilities
+Frappe provides some handy utilities for dealing with `Straws`.
+
+`when` will accept an even number of `Straws`, logically paired up in `condition` and `action`.
+The first `action` whose `condition` returned a truthy value, will be returned.
+
+```javascript
+import { run, when } from '@framp/frappe'
+const ageCheck = when(
+  fn(v => v < 18),
+  constant('minor'),
+  fn(v => v === 18),
+  constant('18'),
+  fn(v => v > 18),
+  constant('adult')
+)
+asserts.deepEqual(run(ageCheck), [15, 13, 18, 20, 18], ['minor', 'minor', '18', 'adult', '18'])
 ```
 
-## hold, take, when
+`hold` will remember the last time a `Straw` returned a truthy value and keep returning that value until the `Straw` start returning a truthy value again.
+If you need more advanced functionalities, you can use `holdWhen`, which will accept a predicate to establish whether the value need to be held or not.
 
-## time
+```javascript
+import { run, hold, holdWhen, id} from '@framp/frappe'
+const results = run(hold(id), [null, 1, null, 2, 3, 4])
+asserts.deepEqual(results, [null, null, null, 2, 2, 4],)
+const resultsWhen = run(holdWhen((acc, val) => val % 2 === 0, id), [null, 1, null, 2, 3, 4],
+asserts.deepEqual(resultsWhen, [null, null, null, 2, 2, 4])
+```
 
-## events
+`take` will run a `Straw` only a limited number of times and return `null` afterwards.
+It's especially useful when you want to fire off things once.
+
+```javascript
+import { run, hold, holdWhen, id} from '@framp/frappe'
+const results = run(hold(id), [null, 1, null, 2, 3, 4])
+asserts.deepEqual(results, [null, null, null, 2, 2, 4],)
+const resultsWhen = run(holdWhen((acc, val) => val % 2 === 0, id), [null, 1, null, 2, 3, 4],
+asserts.deepEqual(resultsWhen, [null, null, null, 2, 2, 4])
+```
 
 ## store
+
+
+## Conclusions
+
+That's it!

@@ -33,6 +33,12 @@ export class ReactRunner extends React.Component<
   ReactRunnerProps,
   ReactRunnerState
 > {
+  public static defaultProps = {
+    options: {
+      verbose: false,
+      updateStrategies: []
+    }
+  }
   constructor (props: ReactRunnerProps) {
     super(props)
     this.strawUpdate = this.strawUpdate.bind(this)
@@ -44,10 +50,12 @@ export class ReactRunner extends React.Component<
     }
   }
   componentDidMount () {
-    const strategies = this.props.options.updateStrategies.reduce(
-      (acc, strategy) => acc.concat(strategy.mount(this.strawUpdate)),
-      []
-    )
+    const strategies = []
+      .concat(this.props.options.updateStrategies)
+      .reduce(
+        (acc, strategy) => acc.concat(strategy.mount(this.strawUpdate)),
+        []
+      )
     const start = Date.now()
     this.setState(state => ({ ...state, strategies, start }))
   }
@@ -81,9 +89,11 @@ export class ReactRunner extends React.Component<
   }
 
   componentWillUnmount () {
-    this.props.options.updateStrategies.forEach((strategy, index) => {
-      strategy.unmount(this.state.strategies[index])
-    })
+    []
+      .concat(this.props.options.updateStrategies)
+      .forEach((strategy, index) => {
+        strategy.unmount(this.state.strategies[index])
+      })
   }
 }
 
