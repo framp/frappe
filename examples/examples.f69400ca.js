@@ -24990,7 +24990,7 @@ exports.when = function () {
   assert.stringEqual(exports.run(ageCheck, [1, 3, 15, 18, 22, 98]), ['minor', 'minor', 'minor', '18', 'adult', 'adult']);
 }
 
-var restartWhen = function restartWhen(condition, effect) {
+exports.restartWhen = function (condition, effect) {
   return exports.accumState(function (_a, val, time, event, emit) {
     var condition = _a[0],
         effect = _a[1],
@@ -25012,12 +25012,12 @@ var restartWhen = function restartWhen(condition, effect) {
 
 {
   var assert = test_1["default"]('restartWhen');
-  var ageCheck = restartWhen(exports.fn(function (v) {
+  var ageCheck = exports.restartWhen(exports.fn(function (v) {
     return v === 3;
   }), exports.accum(function (a, b) {
     return a + b;
   }, 0));
-  assert.stringEqual(exports.run(ageCheck, [1, 2, 3, 4, 4, 3, 6, 7, 3, 3]), []);
+  assert.stringEqual(exports.run(ageCheck, [1, 2, 3, 4, 4, 3, 6, 7, 3, 3]), [1, 3, 3, 7, 11, 3, 9, 16, 3, 3]);
 }
 },{"./test":"../src/test.ts"}],"../src/time.ts":[function(require,module,exports) {
 "use strict";
@@ -25866,7 +25866,7 @@ var timeout = function timeout(fn) {
 var render = function render(paths) {
   return src_1.fn(function (currentView, time, event, emit) {
     return react_1["default"].createElement("div", null, react_1["default"].createElement("section", {
-      className: "menu"
+      className: 'menu'
     }, paths.map(function (path, index) {
       return react_1["default"].createElement("a", {
         href: "#" + path,
@@ -25877,7 +25877,7 @@ var render = function render(paths) {
         }))
       }, path);
     })), react_1["default"].createElement("section", {
-      className: "content"
+      className: 'content'
     }, currentView));
   });
 };
@@ -26183,7 +26183,7 @@ var straws = {
 };
 var options = {
   verbose: true,
-  updateStrategies: [src_1.timeStrategy(5000)]
+  updateStrategies: [src_1.timeStrategy(500)]
 };
 react_dom_1.render(react_1["default"].createElement(src_1.ReactRunner, {
   straw: router_1["default"](straws),
@@ -26216,7 +26216,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36571" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40663" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
